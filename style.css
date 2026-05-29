@@ -158,3 +158,22 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
 .rpanel{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0}
 .rpanel.show{display:flex}
 
+.analysis-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+  margin-top:10px;
+}
+
+.analysis-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.analysis-title{
+  color:var(--saffron);
+  font-size:11px;
+  margin-bottom:10px;
+  letter-spacing:.1em;
+}

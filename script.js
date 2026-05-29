@@ -650,3 +650,239 @@ addEvent('neutral', { t: 'Data sourced: NCRB 2023-IFF-NATGRID-SFLC.in-IAPP 2026'
 setInterval(tick, 850);
 
 window.addEventListener('resize', drawTrend);
+
+async function analyzeDataset(){
+
+  const input =
+    document.getElementById('datasetFile');
+
+  const file = input.files[0];
+
+  if(!file){
+    alert("Select a file first");
+    return;
+  }
+
+  let records = [];
+
+  if(file.name.endsWith(".json")){
+    records = await loadJSON(file);
+  }
+  else if(file.name.endsWith(".csv")){
+    records = await loadCSV(file);
+  }
+  else if(file.name.endsWith(".pdf")){
+    records = await loadPDF(file);
+  }
+
+  processDataset(records);
+
+  // reset input so next upload is always treated as new
+  input.value = "";
+
+}
+
+async function loadJSON(file) {
+
+  try {
+    return JSON.parse(await file.text());
+  }
+  catch {
+    return [];
+  }
+
+}
+
+async function loadCSV(file) {
+
+  const txt = await file.text();
+
+  const lines =
+    txt.split("\n")
+      .filter(x => x.trim());
+
+  const headers =
+    lines[0]
+      .split(",");
+
+  return lines
+    .slice(1)
+    .map(line => {
+
+      const vals =
+        line.split(",");
+
+      const obj = {};
+
+      headers.forEach((h, i) => {
+        obj[h.trim()] =
+          vals[i]?.trim();
+      });
+
+      return obj;
+
+    });
+
+}
+
+async function loadPDF(file) {
+
+  const buffer =
+    await file.arrayBuffer();
+
+  const pdf =
+    await pdfjsLib
+      .getDocument({
+        data: buffer
+      }).promise;
+
+  let text = "";
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+
+    const page =
+      await pdf.getPage(i);
+
+    const content =
+      await page.getTextContent();
+
+    text += content.items
+      .map(x => x.str)
+      .join(" ");
+
+  }
+
+  return text
+    .split(".")
+    .filter(x => x.trim())
+    .map(x => ({ text: x }));
+
+}
+
+function classifyRecord(record) {
+
+  const text = Object.values(record)
+    .join(" ")
+    .toLowerCase();
+
+  const keywords = [
+    "terror",
+    "explosive",
+    "weapon",
+    "murder",
+    "kidnap",
+    "fraud",
+    "drug",
+    "smuggling",
+    "extortion",
+    "gang"
+  ];
+
+  let risk = 0;
+
+  keywords.forEach(word => {
+
+    if (text.includes(word)) {
+      risk += 20;
+    }
+
+  });
+
+  return risk;
+
+}
+
+function processDataset(records) {
+  window.lastRecords = records;
+  console.log("Total Records:", records.length);
+  console.log("First Record:", records[0]);
+  console.log("Second Record:", records[1]);
+
+  let threats = 0;
+  let innocents = 0;
+
+  records.forEach((r, index) => {
+
+    const score = classifyRecord(r);
+
+    if (index < 5) {
+      console.log(r.crime, "=>", score);
+    }
+
+    if (score >= 20)
+      threats++;
+    else
+      innocents++;
+
+  });
+  const total =
+    records.length;
+
+  const fp =
+    total
+      ? Math.round(
+        innocents / total * 100
+      )
+      : 0;
+
+  let verdict =
+    "Balanced Watch";
+
+  if (fp > 60)
+    verdict =
+      "Mass Profiling Risk";
+
+  if (threats > innocents)
+    verdict =
+      "Threat Neutralisation Dominant";
+
+  document
+    .getElementById(
+      "analysisResults"
+    )
+    .innerHTML = `
+
+      <div class="analysis-card">
+
+        <div class="analysis-title">
+          Dataset Assessment
+        </div>
+
+        <div class="analysis-row">
+          <span>Total Records</span>
+          <strong>${total}</strong>
+        </div>
+
+        <div class="analysis-row">
+          <span>Threats Neutralised</span>
+          <strong style="color:#22dd0a">
+            ${threats}
+          </strong>
+        </div>
+
+        <div class="analysis-row">
+          <span>Innocents Profiled</span>
+          <strong style="color:#ff4444">
+            ${innocents}
+          </strong>
+        </div>
+
+        <div class="analysis-row">
+          <span>False Positive Risk</span>
+          <strong>
+            ${fp}%
+          </strong>
+        </div>
+
+        <div class="analysis-row">
+          <span>Verdict</span>
+          <strong style="color:#ff9933">
+            ${verdict}
+          </strong>
+        </div>
+
+      </div>
+
+    `;
+
+}
