@@ -107,8 +107,22 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
 
 #cityMap{position:relative;height:90px;overflow:hidden}
 #cityMapCanvas{width:100%;height:100%}
+.tabs{
+  display:flex;
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  scrollbar-width:thin;
+}
 
-.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tabs::-webkit-scrollbar{
+  height:4px;
+}
+
+.tabs::-webkit-scrollbar-thumb{
+  background:var(--border2);
+}
 .tab{flex:1;padding:7px 4px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--text3);cursor:pointer;text-align:center;border-bottom:1px solid transparent;
   transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--mono)}
@@ -176,4 +190,27 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   font-size:11px;
   margin-bottom:10px;
   letter-spacing:.1em;
+}
+
+.heat-city{
+  margin-bottom:8px;
+}
+
+.heat-label{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:3px;
+  font-size:10px;
+}
+
+.heat-bar{
+  height:8px;
+  border-radius:4px;
+  background:#162022;
+  overflow:hidden;
+}
+
+.heat-fill{
+  height:100%;
+  transition:width .5s ease;
 }

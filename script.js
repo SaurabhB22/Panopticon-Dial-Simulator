@@ -632,7 +632,9 @@ document.getElementById('slider').addEventListener('input', function () {
   renderMetricsLeft(m);
   renderFooter(m);
   if (activeTab === 'cities') renderCities();
-});
+  renderHeatmap();
+}
+);
 
 drawDial(50);
 document.getElementById('dval').textContent = '50';
@@ -642,6 +644,7 @@ renderLevers(50);
 renderIndiaData();
 renderCities();
 renderLegal();
+renderHeatmap();
 renderMetricsLeft(metrics(50));
 renderFooter(metrics(50));
 addEvent('neutral', { t: 'Simulator initialised — drag the dial to set national policy', loc: 'National', src: 'SYSTEM' });
@@ -837,9 +840,7 @@ function processDataset(records) {
       "Threat Neutralisation Dominant";
 
   document
-    .getElementById(
-      "analysisResults"
-    )
+    .getElementById("analysisResults")
     .innerHTML = `
 
       <div class="analysis-card">
@@ -884,5 +885,58 @@ function processDataset(records) {
       </div>
 
     `;
+
+}
+
+function renderHeatmap(){
+
+  const container =
+    document.getElementById("heatmapContainer");
+
+  if(!container) return;
+
+  const level = dial;
+
+  container.innerHTML =
+    INDIA_DATA.cities.map(city=>{
+
+      let intensity =
+        Math.min(
+          100,
+          Math.round(
+            (city.cams / 3000) +
+            (level * 0.6)
+          )
+        );
+
+      let color =
+        intensity > 80
+          ? "#ff4444"
+          : intensity > 50
+          ? "#f0a010"
+          : "#22dd0a";
+
+      return `
+        <div class="heat-city">
+
+          <div class="heat-label">
+            <span>${city.name}</span>
+            <span>${intensity}%</span>
+          </div>
+
+          <div class="heat-bar">
+            <div
+              class="heat-fill"
+              style="
+                width:${intensity}%;
+                background:${color};
+              ">
+            </div>
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
 
 }
