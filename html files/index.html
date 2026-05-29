@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Panopticon Dial — India Surveillance Policy Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="intro" onclick="startSim()">
+    <h1><span class="s">नज़र</span><br><span class="w">vs</span><br><span class="g">आज़ादी</span></h1>
+    <div class="flag">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <p>India Surveillance Policy Simulator<br>1.44 billion people. 126 FRT systems. Zero privacy law with teeth.</p>
+    <div class="sub">Drag the dial. Watch what happens to threats — and to everyone else.<br>All figures sourced from
+      NCRB 2023, IFF, NATGRID, SFLC.in, IAPP.</div>
+    <div class="divline"></div>
+    <div class="prompt">click to begin</div>
+  </div>
+  <div class="layout">
+
+    <header>
+      <div class="hlogo">Panopticon</div>
+      <div class="hsep"></div>
+      <div class="htitle">India Surveillance Policy Simulator-Live</div>
+      <div class="hright">
+        <div class="hdot"></div>
+        <div class="hlabel">NATGRID ACTIVE-45,000 QUERIES/MONTH</div>
+        <div class="hsep"></div>
+        <div class="hclock" id="clock">--</div>
+      </div>
+    </header>
+    <nav class="topnav">
+      <a href="index.html">Simulator</a>
+      <a href="crime.html">Crime Dashboard</a>
+      <a href="cities.html">Cities</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="pleft">
+      <div class="sec" style="padding-bottom:8px">
+        <div class="lbl">Population under watch (1.44B)</div>
+        <div id="popGrid"></div>
+        <div style="display:flex;gap:12px;padding:6px 0 0;font-size:9px;color:var(--text3)">
+          <span><span style="color:var(--border2)">■</span> citizen</span>
+          <span><span style="color:var(--amber-dim)">■</span> monitored</span>
+          <span><span style="color:var(--red-bright)">■</span> flagged</span>
+          <span><span style="color:var(--green-bright)">■</span> cleared</span>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="lbl">System Metrics</div>
+        <div id="metricsLeft"></div>
+      </div>
+      <div class="sec" style="flex:1;overflow-y:auto;border-bottom:none">
+        <div class="lbl">India Ground Truth (NCRB 2023)</div>
+        <div id="indiaData"></div>
+      </div>
+    </div>
+    <div class="pcenter">
+      <div id="verdict">BALANCED POLICY-PASSIVE WATCH</div>
+      <div class="afl red" id="flR"></div>
+      <div class="afl grn" id="flG"></div>
+
+      <div class="dial-wrap">
+        <canvas id="dialCanvas" width="260" height="260"></canvas>
+        <div class="dial-center">
+          <div class="dval" id="dval">50</div>
+          <div class="dunit">SURVEILLANCE INDEX</div>
+          <div class="dpolicy" id="dpolicy">Balanced Watch</div>
+        </div>
+      </div>
+
+      <div class="slider-wrap">
+        <div class="slabels">
+          <span>CIVIL LIBERTY</span>
+          <span>TOTAL CONTROL</span>
+        </div>
+        <input type="range" id="slider" min="0" max="100" value="50">
+        <div class="ssublabel" id="ssub">Drag to set India's national surveillance policy</div>
+      </div>
+
+      <div class="cpair">
+        <div class="cbox safe">
+          <div class="ctag">Threats Neutralised</div>
+          <div class="cnum" id="cThreats">0</div>
+          <div class="csub">Incidents prevented</div>
+        </div>
+        <div class="cbox harm">
+          <div class="ctag">Innocents Profiled</div>
+          <div class="cnum" id="cInnocents">0</div>
+          <div class="csub">False positives</div>
+        </div>
+      </div>
+    </div>
+    <div class="pright">
+      <div class="tabs">
+        <button class="tab active" onclick="setTab('feed',this)">Feed</button>
+        <button class="tab" onclick="setTab('levers',this)">Policy</button>
+        <button class="tab" onclick="setTab('cities',this)">Cities</button>
+        <button class="tab" onclick="setTab('laws',this)">Laws</button>
+      </div>
+      <div class="rpanel show" id="tab-feed">
+        <div class="feed" id="eventFeed"></div>
+      </div>
+      <div class="rpanel" id="tab-levers">
+        <div style="flex:1;overflow-y:auto;padding:12px 14px">
+          <div class="lbl">Active Policy Levers</div>
+          <div id="policyLevers"></div>
+          <div class="lbl" style="margin-top:14px">Spending (Crore(INR))</div>
+          <div id="spendingBars"></div>
+        </div>
+      </div>
+      <div class="rpanel" id="tab-cities">
+        <div style="flex:1;overflow-y:auto;padding:12px 14px">
+          <div class="lbl">City Camera Density</div>
+          <div id="cityStats"></div>
+          <div class="lbl" style="margin-top:14px">Crime Rate (per 1L pop)</div>
+          <div id="crimeStats"></div>
+        </div>
+      </div>
+      <div class="rpanel" id="tab-laws">
+        <div style="flex:1;overflow-y:auto;padding:12px 14px">
+          <div class="lbl">Legal Framework</div>
+          <div id="legalPanel"></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="fcell">
+        <div class="flabel">False Positive Rate</div>
+        <div class="fval" id="fFPR" style="color:var(--red-bright)">—</div>
+        <div class="fdelta" id="fFPRd">India FRT baseline: ~15%</div>
+      </div>
+      <div class="fcell">
+        <div class="flabel">Civil Liberty Index</div>
+        <div class="fval" id="fCLI" style="color:var(--green-bright)">—</div>
+        <div class="fdelta" id="fCLId">Puttaswamy standard</div>
+      </div>
+      <div class="fcell">
+        <div class="flabel">Detection Efficacy</div>
+        <div class="fval" id="fDE" style="color:var(--cyan)">—</div>
+        <div class="fdelta" id="fDEd">NATGRID benchmark</div>
+      </div>
+      <div class="fcell">
+        <div class="flabel">Chilling Effect</div>
+        <div class="fval" id="fCE" style="color:var(--amber)">—</div>
+        <div class="fdelta" id="fCEd">protest deterrence</div>
+      </div>
+      <div class="fcell">
+        <div class="flabel">Minority Bias</div>
+        <div class="fval" id="fMB" style="color:var(--saffron)">—</div>
+        <div class="fdelta" id="fMBd">IFF 2023 finding</div>
+      </div>
+      <div class="fcell">
+        <div class="flabel">Public Trust</div>
+        <div class="fval" id="fST">—</div>
+        <div class="fdelta" id="fSTd">Institutional confidence</div>
+      </div>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
