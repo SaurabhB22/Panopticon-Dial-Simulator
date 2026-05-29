@@ -47,6 +47,8 @@ const EV_THREAT = [
   {t:"Explosive carrier detected",loc:"Delhi IGI",      src:"CISF-FRT"},
 ];
 const EV_INNOCENT = [
+  {t:"Citizen #{Math.floor(1000 + Math.random()*9000)} flagged for critical social media post", loc:"Kanpur",src:"Target-Monitor"},
+  {t:"Aadhaar suspended for user #{Math.floor(1000 + Math.random()*9000)} due to low trust score", loc:"Odisha", src:"UIDAI-Grid"},
   {t:"Farmer protest attendee flagged — passport cancelled", loc:"Punjab",      src:"FRT-protest-scan"},
   {t:"Wrong-person arrest — tribal man, 3-day detention",    loc:"Jharkhand",   src:"FRT-mismatch"},
   {t:"Journalist communications intercepted",                loc:"Delhi",       src:"IT-Act-§69"},
