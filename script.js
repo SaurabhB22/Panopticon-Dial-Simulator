@@ -503,14 +503,13 @@ function drawTrend() {
   if (!wrap) return;
   const tc = document.getElementById('trendCanvas');
   const W = wrap.clientWidth;
-  const H = 100; // Fixed height under system metrics
+  const H = 100; 
   if (W <= 0 || H <= 0) return;
   tc.width = W; tc.height = H;
   const ctx = tc.getContext('2d');
   ctx.clearRect(0, 0, W, H);
   if (trendFPR.length < 2) return;
 
-  // Render a futuristic glowing grid system
   ctx.strokeStyle = 'rgba(26, 48, 56, 0.3)'; 
   ctx.lineWidth = 0.8;
   for (let i = 0; i <= 4; i++) {
@@ -521,7 +520,6 @@ function drawTrend() {
     ctx.stroke();
   }
 
-  // Draw cyber-labels using the simulator's harmonious color tokens
   ctx.font = '8px "IBM Plex Mono", monospace';
   const labels = ['FPR (False Positives)', 'CLI (Civil Liberty)', 'DE (Efficacy)'];
   const colors = ['#ff4444', '#22dd0a', '#18b8c8'];
@@ -539,14 +537,11 @@ function drawTrend() {
     });
     ctx.strokeStyle = col; 
     ctx.lineWidth = 1.6;
-    
-    // Add visual ambient shadow glow to the metric lines
     ctx.shadowColor = col;
     ctx.shadowBlur = 6;
     ctx.stroke();
     ctx.shadowBlur = 0;
   };
-  
   draw(trendFPR, '#ff4444');
   draw(trendCLI, '#22dd0a');
   draw(trendDE, '#18b8c8');
@@ -709,7 +704,6 @@ async function analyzeDataset() {
 
   processDataset(records);
 
-  // reset input so next upload is always treated as new
   input.value = "";
 
 }
@@ -729,8 +723,6 @@ async function loadCSV(file) {
   const txt = await file.text();
   const lines = txt.split(/\r?\n/).filter(x => x.trim());
   if (lines.length === 0) return [];
-  
-  // Robust CSV splitting regex that handles quoted values containing commas
   const parseCSVLine = (line) => {
     const matches = [];
     let match;
@@ -755,7 +747,6 @@ async function loadCSV(file) {
 }
 
 async function loadPDF(file) {
-  // Specify CDN counterpart of worker script to ensure modern PDF.js works in standard sandbox environments
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js';
 
   const buffer = await file.arrayBuffer();
@@ -1502,7 +1493,6 @@ if (eyeCanvas) {
     const cx = 350;
     const cy = 175;
 
-    /* HUD RING 1 */
 
     ctx.save();
 
@@ -1531,7 +1521,6 @@ if (eyeCanvas) {
 
     ctx.restore();
 
-    /* HUD RING 2 */
 
     ctx.save();
 
@@ -1550,7 +1539,6 @@ if (eyeCanvas) {
 
     ctx.restore();
 
-    /* SCAN BEAM */
 
     ctx.save();
 
@@ -1588,7 +1576,6 @@ if (eyeCanvas) {
 
     ctx.restore();
 
-    /* IRIS */
 
     const iris =
       ctx.createRadialGradient(
@@ -1607,7 +1594,6 @@ if (eyeCanvas) {
     ctx.arc(cx, cy, 85, 0, Math.PI * 2);
     ctx.fill();
 
-    /* ENERGY HALO */
 
     const halo =
       ctx.createRadialGradient(
@@ -1648,7 +1634,6 @@ if (eyeCanvas) {
 
     ctx.fill();
 
-    /* PUPIL */
 
     let offset = 0;
 
@@ -1675,7 +1660,6 @@ if (eyeCanvas) {
 
     ctx.fill();
 
-    /* TARGETING MARKS */
 
     ctx.strokeStyle =
       "#18b8c8";
@@ -1686,7 +1670,6 @@ if (eyeCanvas) {
     ctx.arc(cx, cy, 105, 0, Math.PI * 2);
     ctx.strokeStyle = "rgba(24,184,200,.15)";
     ctx.stroke();
-    /* PARTICLES */
 
     for (let i = 0; i < 40; i++) {
 
@@ -1730,7 +1713,6 @@ if (eyeCanvas) {
 
 const feeds = [
 
-  // INDIA
 
   "https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms",
 
@@ -1752,7 +1734,6 @@ const feeds = [
 
   "https://www.livemint.com/rss/news",
 
-  // CYBERSECURITY
 
   "https://feeds.feedburner.com/TheHackersNews",
 
@@ -1764,7 +1745,6 @@ const feeds = [
 
   "https://www.darkreading.com/rss.xml",
 
-  // WORLD NEWS
 
   "https://rss.cnn.com/rss/edition.rss",
 
@@ -1780,7 +1760,6 @@ const feeds = [
 
   "https://www.reutersagency.com/feed/?best-topics=world&post_type=best",
 
-  // TECHNOLOGY + AI
 
   "https://techcrunch.com/feed/",
 
@@ -1790,7 +1769,6 @@ const feeds = [
 
   "https://venturebeat.com/feed/",
 
-  // SECURITY + DEFENSE
 
   "https://www.defensenews.com/arc/outboundfeeds/rss/",
 
@@ -1811,7 +1789,6 @@ async function refreshNewsFeed() {
 
     const response = await fetch(url);
     const data = await response.json();
-    
     document.getElementById("lastRefreshTime").innerHTML =
       "Last Updated: " + new Date().toLocaleTimeString();
 
@@ -1832,7 +1809,6 @@ async function refreshNewsFeed() {
 
   } catch (error) {
     console.warn("External live news failed, loading high-fidelity simulated intelligence ticker feed:", error);
-    
     document.getElementById("lastRefreshTime").innerHTML =
       "Last Updated (Intelligence Feed): " + new Date().toLocaleTimeString();
 
@@ -2217,7 +2193,7 @@ function calculateBudget(){
 
 }
 
-// Audio system global variables and controller hooks
+
 window.isMuted = false;
 window.toggleMute = function() {
   window.isMuted = !window.isMuted;
