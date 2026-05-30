@@ -250,3 +250,27 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   font-size:11px;
   margin-bottom:10px;
 }
+
+.advisor-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.advisor-title{
+  color:var(--green-bright);
+  margin-bottom:10px;
+  font-size:11px;
+}
+
+.advisor-section{
+  margin-top:10px;
+}
+
+.advisor-badge{
+  padding:2px 6px;
+  border-radius:2px;
+  background:#162022;
+  color:#b8cdd0;
+  font-size:9px;
+}

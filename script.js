@@ -1177,3 +1177,121 @@ function generateFutureProjection(){
     `;
 
 }
+
+function generatePolicyAdvice(){
+
+  const m = metrics(dial);
+
+  let recommendation = "";
+  let impact = "";
+  let riskLevel = "";
+
+  if(dial < 30){
+
+    riskLevel = "LOW";
+
+    recommendation =
+      "Increase targeted surveillance in high-crime zones while maintaining judicial oversight.";
+
+    impact =
+      "+12% threat detection , -3% civil liberty impact";
+
+  }
+  else if(dial < 60){
+
+    riskLevel = "MODERATE";
+
+    recommendation =
+      "Maintain balanced monitoring. Expand warrant-based investigations instead of mass collection.";
+
+    impact =
+      "+6% threat detection , +4% public trust";
+
+  }
+  else if(dial < 80){
+
+    riskLevel = "HIGH";
+
+    recommendation =
+      "Reduce facial recognition deployment and introduce independent audits.";
+
+    impact =
+      "-18% false positives , +15% civil liberty index";
+
+  }
+  else{
+
+    riskLevel = "CRITICAL";
+
+    recommendation =
+      "Limit bulk data collection, require judicial warrants, and strengthen privacy safeguards.";
+
+    impact =
+      "-30% profiling risk , +25% public trust";
+
+  }
+
+  document
+    .getElementById("policyAdvisor")
+    .innerHTML = `
+
+      <div class="advisor-card">
+
+        <div class="advisor-title">
+          Policy Recommendation Engine
+        </div>
+
+        <div style="margin-bottom:8px">
+          Current Dial:
+          <strong>${dial}</strong>
+        </div>
+
+        <div style="margin-bottom:8px">
+          Risk Level:
+          <span class="advisor-badge">
+            ${riskLevel}
+          </span>
+        </div>
+
+        <div class="advisor-section">
+
+          <strong>
+            Recommended Action
+          </strong>
+
+          <div style="margin-top:4px;color:var(--text2)">
+            ${recommendation}
+          </div>
+
+        </div>
+
+        <div class="advisor-section">
+
+          <strong>
+            Expected Outcome
+          </strong>
+
+          <div style="margin-top:4px;color:var(--text2)">
+            ${impact}
+          </div>
+
+        </div>
+
+        <div class="advisor-section">
+
+          <strong>
+            Current Metrics
+          </strong>
+
+          <div style="margin-top:4px;color:var(--text2)">
+            False Positive Rate: ${m.fpr}%<br>
+            Civil Liberty Index: ${m.cli}%<br>
+            Detection Efficacy: ${m.de}%
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+}
