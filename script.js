@@ -633,6 +633,7 @@ document.getElementById('slider').addEventListener('input', function () {
   renderFooter(m);
   if (activeTab === 'cities') renderCities();
   renderHeatmap();
+  updateSentiment();
 }
 );
 
@@ -645,6 +646,7 @@ renderIndiaData();
 renderCities();
 renderLegal();
 renderHeatmap();
+updateSentiment();
 renderMetricsLeft(metrics(50));
 renderFooter(metrics(50));
 addEvent('neutral', { t: 'Simulator initialised — drag the dial to set national policy', loc: 'National', src: 'SYSTEM' });
@@ -1896,16 +1898,16 @@ window.newsTimer =
     60000
   );
 
-  let secondsLeft = 60;
+let secondsLeft = 60;
 
-setInterval(()=>{
+setInterval(() => {
 
   const el =
     document.getElementById(
       "feedStatus"
     );
 
-  if(!el) return;
+  if (!el) return;
 
   el.innerHTML =
     "● LIVE • Refresh in " +
@@ -1914,8 +1916,204 @@ setInterval(()=>{
 
   secondsLeft--;
 
-  if(secondsLeft < 0){
+  if (secondsLeft < 0) {
     secondsLeft = 60;
   }
 
-},1000);
+}, 1000);
+
+function updateSentiment() {
+
+  let securitySupport;
+  let privacySupport;
+
+  if (dial <= 25) {
+
+    securitySupport =
+      Math.round(
+        30 + Math.random() * 10
+      );
+
+    privacySupport =
+      100 - securitySupport;
+
+  }
+  else if (dial <= 50) {
+
+    securitySupport =
+      Math.round(
+        45 + Math.random() * 10
+      );
+
+    privacySupport =
+      100 - securitySupport;
+
+  }
+  else if (dial <= 75) {
+
+    securitySupport =
+      Math.round(
+        55 + Math.random() * 10
+      );
+
+    privacySupport =
+      100 - securitySupport;
+
+  }
+  else {
+
+    securitySupport =
+      Math.round(
+        40 + Math.random() * 10
+      );
+
+    privacySupport =
+      100 - securitySupport;
+
+  }
+
+  let mood = "";
+  let description = "";
+
+  if (securitySupport >= 75) {
+
+    mood = "National Security Priority";
+
+    description =
+      "Citizens strongly support surveillance expansion for public safety.";
+
+  }
+  else if (securitySupport >= 65) {
+
+    mood = "Security First";
+
+    description =
+      "Public opinion favors stronger monitoring and threat detection.";
+
+  }
+  else if (securitySupport >= 55) {
+
+    mood = "Balanced Governance";
+
+    description =
+      "Citizens support surveillance with oversight and accountability.";
+
+  }
+  else if (privacySupport >= 75) {
+
+    mood = "Privacy Rights Movement";
+
+    description =
+      "Public strongly opposes mass surveillance and data collection.";
+
+  }
+  else if (privacySupport >= 65) {
+
+    mood = "Privacy First";
+
+    description =
+      "Citizens want stricter limits on surveillance technologies.";
+
+  }
+  else if (dial >= 85) {
+
+    mood = "Surveillance Fatigue";
+
+    description =
+      "People are increasingly concerned about constant monitoring.";
+
+  }
+  else if (dial >= 70) {
+
+    mood = "Trust Deficit";
+
+    description =
+      "Public confidence in surveillance programs is declining.";
+
+  }
+  else {
+
+    mood = "Stable Public Opinion";
+
+    description =
+      "No major shift in sentiment detected.";
+
+  }
+  document
+    .getElementById(
+      "sentimentPanel"
+    )
+    .innerHTML = `
+
+      <div class="sentiment-card">
+
+        <div class="sentiment-row">
+
+          <div class="sentiment-label">
+            <span>Security Support</span>
+            <strong>${securitySupport}%</strong>
+          </div>
+
+          <div class="sentiment-bar">
+            <div
+              class="sentiment-fill"
+              style="
+              width:${securitySupport}%;
+              background:#22dd0a;">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sentiment-row">
+
+          <div class="sentiment-label">
+            <span>Privacy Support</span>
+            <strong>${privacySupport}%</strong>
+          </div>
+
+          <div class="sentiment-bar">
+            <div
+              class="sentiment-fill"
+              style="
+              width:${privacySupport}%;
+              background:#18b8c8;">
+            </div>
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div
+  style="
+  margin-top:10px;
+  color:var(--saffron);
+  font-weight:bold;">
+  <span
+style="
+padding:4px 8px;
+border-radius:4px;
+background:#243538;
+">
+
+${mood}
+
+</span>
+</div>
+
+<div
+  style="
+  margin-top:8px;
+  color:var(--text2);
+  line-height:1.5;
+  font-size:10px;
+  ">
+  ${description}
+</div>
+
+      </div>
+
+    `;
+
+}
