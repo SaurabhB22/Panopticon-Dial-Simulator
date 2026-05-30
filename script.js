@@ -235,6 +235,7 @@ const EV_INNOCENT = [
   { t: "Public library user flagged by automated system", loc: "Hyderabad", src: "Search-monitor" },
   { t: "Incorrect facial recognition match leads to detention", loc: "Bengaluru", src: "FRT-error" }
 ];
+
 const EV_NEUTRAL = [
   { t: "Routine FRT calibration completed", loc: "Delhi", src: "SYS" },
   { t: "NATGRID nightly data sync complete", loc: "National", src: "NATGRID" },
@@ -262,6 +263,39 @@ const EV_NEUTRAL = [
   { t: "Biometric verification service updated", loc: "Visakhapatnam", src: "UIDAI-Link" },
   { t: "National threat-monitoring dashboard refreshed", loc: "National", src: "Monitoring" }
 ];
+let threatCount=0;
+let innocentCount=0;
+function updatesimulator(){
+  let isThreat=Math.random() <0.3;
+  let event=isThreat ?
+     EV_THREAT[Math.floor(Math.random()*EV_THREAT.length)]:
+     EV_INNOCENT[Math.floor(Math.random()*EV_INNOCENT.length)];
+  if(isThreat){
+      threatCount++;
+      document.getElementById('threat-count').innerText=threatCount;
+  }
+  else{
+    innocentCount++;
+    document.getElementById('innocent-count').innerText=innocentCount;
+  }
+let logDiv=document.getElementById('logs');
+let newEntryL='<div style="border-left: 3px solid ${isThreat ? "red" :"green"}; margin: 5px 0; padding-left: 10px;">${event.t}-location: ${event.loc}</div>';
+logDiv.innerHTML=newEntry+logDiv.innerHTML;
+}
+function clearlogs(){
+  threatCount=0;
+  innocentCount=0;
+  document.getElementById('threat-count').innerText=0;
+  document.getElementById('innocent-count').innerText=0;
+  document.getElementById('logs').innerHTML="";
+}
+let dial=50, threatsT=0, innocentsT=0, running=false, tickN=0;
+let prevM=null;
+let trendFPR=[], trendCLI=[], trendDE=[];
+const TMAX=80;
+let popDots=[];
+const PDOTS=180;
+let activeTab='feed';
 let dial = 50, threatsT = 0, innocentsT = 0, running = false, tickN = 0;
 let prevM = null;
 let trendFPR = [], trendCLI = [], trendDE = [];

@@ -28,6 +28,15 @@
     <div class="prompt">click to begin</div>
   </div>
   <div class="layout">
+  <div id="dashboard" style="background: #1a1a1a; color: #00ff00; padding: 20px; border-bottom: 2px solid #333; font-family: 'IBM Plex Mono', monospace;">
+     <h3> style="margin-top: 0;> SYSTEM STATUS~ MONITORING </h3>
+     <div style="display: flex; gap: 20px;">
+        <p>Threats Detected: <span id="threat-count">0</span></p>
+        <p>Innocent Flagged:<span id="innocent-count">0</span></p>
+     </div>
+     <button onclick="clearlogs()" style="cursor: pointer; background: #ff4444; border: none; padding: 8px 15px; color: White; font-weight: bold;">Clear History</button>
+  </div>
+  <div id="logs" style="padding: 20px; color: #ddd; font-family: 'IBM Plex Mono', monospace;"></div>
 
     <header>
       <div class="hlogo">Panopticon</div>
