@@ -292,3 +292,38 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   justify-content:space-between;
   margin-bottom:8px;
 }
+
+#surveillanceEyeBG{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:700px;
+    height:350px;
+
+    z-index:0;
+
+    opacity:.32;
+
+    pointer-events:none;
+}
+
+#surveillanceEyeCanvas{
+
+    width:100%;
+    height:100%;
+}
+
+.dial-wrap{
+
+    position:relative;
+    z-index:5;
+}
+
+#verdict{
+    z-index:10;
+}

@@ -1469,3 +1469,211 @@ function simulateHistoricalEvent(){
     `;
 
 }
+
+const eyeCanvas =
+document.getElementById("surveillanceEyeCanvas");
+
+if(eyeCanvas){
+
+const ctx =
+eyeCanvas.getContext("2d");
+
+eyeCanvas.width = 700;
+eyeCanvas.height = 350;
+
+let rot = 0;
+
+function drawEye(){
+
+ctx.clearRect(0,0,700,350);
+
+const cx = 350;
+const cy = 175;
+
+/* HUD RING 1 */
+
+ctx.save();
+
+ctx.translate(cx,cy);
+
+ctx.rotate(rot);
+
+for(let i=0;i<120;i++){
+
+ctx.strokeStyle =
+"rgba(24,184,200,.25)";
+
+ctx.beginPath();
+
+ctx.arc(
+0,
+0,
+90,
+(i*3)*Math.PI/180,
+(i*3+1)*Math.PI/180
+);
+
+ctx.stroke();
+
+}
+
+ctx.restore();
+
+/* HUD RING 2 */
+
+ctx.save();
+
+ctx.translate(cx,cy);
+
+ctx.rotate(-rot*1.4);
+
+ctx.strokeStyle =
+"rgba(24,184,200,.5)";
+
+ctx.lineWidth = 2;
+
+ctx.beginPath();
+ctx.arc(0,0,70,0,Math.PI*2);
+ctx.stroke();
+
+ctx.restore();
+
+/* SCAN BEAM */
+
+ctx.save();
+
+ctx.translate(cx,cy);
+
+ctx.rotate(rot*2);
+
+const beam =
+ctx.createLinearGradient(
+0,0,130,0
+);
+
+beam.addColorStop(
+0,
+"rgba(24,184,200,0)"
+);
+
+beam.addColorStop(
+.5,
+"rgba(24,184,200,.9)"
+);
+
+beam.addColorStop(
+1,
+"rgba(24,184,200,0)"
+);
+
+ctx.strokeStyle = beam;
+ctx.lineWidth = 5;
+
+ctx.beginPath();
+ctx.moveTo(0,0);
+ctx.lineTo(130,0);
+ctx.stroke();
+
+ctx.restore();
+
+/* IRIS */
+
+const iris =
+ctx.createRadialGradient(
+cx,cy,10,
+cx,cy,90
+);
+
+iris.addColorStop(0,"#ffffff");
+iris.addColorStop(.1,"#9fffff");
+iris.addColorStop(.4,"#18b8c8");
+iris.addColorStop(1,"#00181c");
+
+ctx.fillStyle = iris;
+
+ctx.beginPath();
+ctx.arc(cx,cy,85,0,Math.PI*2);
+ctx.fill();
+
+/* PUPIL */
+
+let offset = 0;
+
+const slider =
+document.getElementById("slider");
+
+if(slider){
+
+offset =
+((Number(slider.value)-50)/50)*25;
+
+}
+
+ctx.fillStyle="#000";
+
+ctx.beginPath();
+ctx.arc(
+cx+offset,
+cy,
+35,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+/* TARGETING MARKS */
+
+ctx.strokeStyle =
+"#18b8c8";
+
+ctx.lineWidth = 2;
+
+ctx.strokeRect(
+cx-105,
+cy-105,
+210,
+210
+);
+
+/* PARTICLES */
+
+for(let i=0;i<40;i++){
+
+const a =
+(i*9+rot*150)
+*Math.PI/180;
+
+const r =
+110+
+Math.sin(rot+i)*12;
+
+const x =
+cx+
+Math.cos(a)*r;
+
+const y =
+cy+
+Math.sin(a)*r;
+
+ctx.fillStyle =
+"#18b8c8";
+
+ctx.fillRect(
+x,
+y,
+2,
+2
+);
+
+}
+
+rot += 0.01;
+
+requestAnimationFrame(drawEye);
+
+}
+
+drawEye();
+
+}
