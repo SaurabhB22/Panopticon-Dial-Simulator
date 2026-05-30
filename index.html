@@ -105,6 +105,7 @@
         <button class="tab" onclick="setTab('upload',this)">Analyzer</button>
         <button class="tab" onclick="setTab('heatmap',this)">Heatmap</button>
         <button class="tab" onclick="setTab('citizen',this)">Citizen</button>
+        <button class="tab" onclick="setTab('future',this)">Future</button>
       </div>
       <div class="rpanel show" id="tab-feed">
         <div class="feed" id="eventFeed"></div>
@@ -213,6 +214,36 @@
 
     <div
       id="citizenCard"
+      style="margin-top:15px">
+    </div>
+
+  </div>
+
+</div>
+<div class="rpanel" id="tab-future">
+
+  <div style="padding:12px 14px;overflow-y:auto">
+
+    <div class="lbl">
+      India 2030 Projection
+    </div>
+
+    <button
+      onclick="generateFutureProjection()"
+      style="
+      width:100%;
+      padding:10px;
+      border:none;
+      background:#ff9933;
+      color:black;
+      cursor:pointer;
+      font-weight:bold;
+      ">
+      Predict 2030
+    </button>
+
+    <div
+      id="futureProjection"
       style="margin-top:15px">
     </div>
 

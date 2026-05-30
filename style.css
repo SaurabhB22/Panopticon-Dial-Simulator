@@ -232,3 +232,21 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   margin-bottom:10px;
   font-size:11px;
 }
+
+.future-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.future-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.future-title{
+  color:var(--saffron);
+  font-size:11px;
+  margin-bottom:10px;
+}

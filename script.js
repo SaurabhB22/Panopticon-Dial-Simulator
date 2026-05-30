@@ -1065,3 +1065,115 @@ function generateCitizen(){
     `;
 
 }
+
+function generateFutureProjection(){
+
+  const surveillance =
+    Math.round(
+      dial + 10
+    );
+
+  const detection =
+    Math.min(
+      100,
+      Math.round(
+        30 + dial * 0.7
+      )
+    );
+
+  const falsePos =
+    Math.min(
+      100,
+      Math.round(
+        10 + dial * 0.9
+      )
+    );
+
+  const privacy =
+    Math.max(
+      5,
+      Math.round(
+        100 - dial * 0.95
+      )
+    );
+
+  const trust =
+    Math.max(
+      5,
+      Math.round(
+        90 - dial * 0.8
+      )
+    );
+
+  let verdict =
+    "Balanced Digital Society";
+
+  if(dial > 70){
+    verdict =
+      "High Surveillance State";
+  }
+
+  if(dial > 85){
+    verdict =
+      "Panopticon Scenario";
+  }
+
+  document
+    .getElementById(
+      "futureProjection"
+    )
+    .innerHTML = `
+
+      <div class="future-card">
+
+        <div class="future-title">
+          India 2030 Forecast
+        </div>
+
+        <div class="future-row">
+          <span>Surveillance Index</span>
+          <strong>${surveillance}%</strong>
+        </div>
+
+        <div class="future-row">
+          <span>Threat Detection</span>
+          <strong style="color:#22dd0a">
+            ${detection}%
+          </strong>
+        </div>
+
+        <div class="future-row">
+          <span>False Positives</span>
+          <strong style="color:#ff4444">
+            ${falsePos}%
+          </strong>
+        </div>
+
+        <div class="future-row">
+          <span>Privacy Index</span>
+          <strong style="color:#18b8c8">
+            ${privacy}%
+          </strong>
+        </div>
+
+        <div class="future-row">
+          <span>Public Trust</span>
+          <strong>
+            ${trust}%
+          </strong>
+        </div>
+
+        <hr>
+
+        <div class="future-row">
+          <span>Forecast</span>
+          <strong style="color:#ff9933">
+            ${verdict}
+          </strong>
+        </div>
+
+      </div>
+
+    `;
+
+}
