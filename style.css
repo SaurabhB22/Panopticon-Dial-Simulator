@@ -327,3 +327,27 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
 #verdict{
     z-index:10;
 }
+
+.news-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:10px;
+  margin-bottom:10px;
+}
+
+.news-title{
+  color:var(--cyan);
+  margin-bottom:6px;
+  font-size:10px;
+}
+
+.news-source{
+  color:var(--text3);
+  font-size:8px;
+}
+
+.news-impact{
+  color:var(--saffron);
+  margin-top:6px;
+  font-size:9px;
+}
