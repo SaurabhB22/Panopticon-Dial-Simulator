@@ -274,3 +274,21 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   color:#b8cdd0;
   font-size:9px;
 }
+
+.history-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.history-title{
+  color:#2060c0;
+  margin-bottom:10px;
+  font-size:11px;
+}
+
+.history-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}

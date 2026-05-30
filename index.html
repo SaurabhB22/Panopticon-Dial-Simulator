@@ -107,6 +107,7 @@
         <button class="tab" onclick="setTab('citizen',this)">Citizen</button>
         <button class="tab" onclick="setTab('future',this)">Future</button>
         <button class="tab" onclick="setTab('advisor',this)">Advisor</button>
+        <button class="tab" onclick="setTab('history',this)">History</button>
       </div>
       <div class="rpanel show" id="tab-feed">
         <div class="feed" id="eventFeed"></div>
@@ -275,6 +276,69 @@
 
     <div
       id="policyAdvisor"
+      style="margin-top:15px">
+    </div>
+
+  </div>
+
+</div>
+<div class="rpanel" id="tab-history">
+
+  <div style="padding:12px 14px;overflow-y:auto">
+
+    <div class="lbl">
+      Historical Event Simulator
+    </div>
+
+    <select
+      id="historicalEvent"
+      style="
+      width:100%;
+      padding:8px;
+      margin-bottom:10px;
+      background:#0a0f10;
+      color:#b8cdd0;
+      border:1px solid #243538;
+      ">
+
+      <option value="mumbai">
+        Mumbai Attacks 2008
+      </option>
+
+      <option value="covid">
+        COVID Lockdown
+      </option>
+
+      <option value="farmers">
+        Farmers Protest
+      </option>
+
+      <option value="delhi">
+        Delhi Riots 2020
+      </option>
+
+      <option value="cyber">
+        National Cyber Attack
+      </option>
+
+    </select>
+
+    <button
+      onclick="simulateHistoricalEvent()"
+      style="
+      width:100%;
+      padding:10px;
+      border:none;
+      background:#2060c0;
+      color:white;
+      cursor:pointer;
+      font-weight:bold;
+      ">
+      Run Simulation
+    </button>
+
+    <div
+      id="historyResults"
       style="margin-top:15px">
     </div>
 

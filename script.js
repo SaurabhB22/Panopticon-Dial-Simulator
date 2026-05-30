@@ -1295,3 +1295,177 @@ function generatePolicyAdvice(){
 
     `;
 }
+
+function simulateHistoricalEvent(){
+
+  const event =
+    document.getElementById(
+      "historicalEvent"
+    ).value;
+
+  let title = "";
+  let detection = "";
+  let liberty = "";
+  let outcome = "";
+
+  if(event === "mumbai"){
+
+    title =
+      "Mumbai Attacks 2008";
+
+    detection =
+      Math.round(
+        30 + dial * 0.7
+      ) + "%";
+
+    liberty =
+      Math.max(
+        5,
+        100 - dial
+      ) + "%";
+
+    outcome =
+      dial > 70
+      ? "Attack preparation detected earlier through surveillance systems."
+      : "Limited detection capability before attack execution.";
+
+  }
+
+  if(event === "covid"){
+
+    title =
+      "COVID Lockdown";
+
+    detection =
+      Math.round(
+        40 + dial * 0.5
+      ) + "%";
+
+    liberty =
+      Math.max(
+        5,
+        100 - dial
+      ) + "%";
+
+    outcome =
+      dial > 60
+      ? "Movement tracking improves containment but reduces privacy."
+      : "Higher privacy but weaker mobility monitoring.";
+
+  }
+
+  if(event === "farmers"){
+
+    title =
+      "Farmers Protest";
+
+    detection =
+      Math.round(
+        20 + dial * 0.4
+      ) + "%";
+
+    liberty =
+      Math.max(
+        5,
+        100 - dial
+      ) + "%";
+
+    outcome =
+      dial > 70
+      ? "Large-scale participant monitoring and profiling risk."
+      : "Lower surveillance with stronger civil-liberty protections.";
+
+  }
+
+  if(event === "delhi"){
+
+    title =
+      "Delhi Riots 2020";
+
+    detection =
+      Math.round(
+        35 + dial * 0.6
+      ) + "%";
+
+    liberty =
+      Math.max(
+        5,
+        100 - dial
+      ) + "%";
+
+    outcome =
+      dial > 65
+      ? "More suspects identified through cameras and FRT."
+      : "Lower monitoring but reduced profiling concerns.";
+
+  }
+
+  if(event === "cyber"){
+
+    title =
+      "National Cyber Attack";
+
+    detection =
+      Math.round(
+        45 + dial * 0.5
+      ) + "%";
+
+    liberty =
+      Math.max(
+        5,
+        100 - dial
+      ) + "%";
+
+    outcome =
+      dial > 50
+      ? "Enhanced network monitoring improves threat response."
+      : "Slower detection but stronger privacy guarantees.";
+
+  }
+
+  document
+    .getElementById(
+      "historyResults"
+    )
+    .innerHTML = `
+
+      <div class="history-card">
+
+        <div class="history-title">
+          ${title}
+        </div>
+
+        <div class="history-row">
+          <span>Surveillance Dial</span>
+          <strong>${dial}</strong>
+        </div>
+
+        <div class="history-row">
+          <span>Detection Potential</span>
+          <strong style="color:#22dd0a">
+            ${detection}
+          </strong>
+        </div>
+
+        <div class="history-row">
+          <span>Civil Liberty Index</span>
+          <strong style="color:#18b8c8">
+            ${liberty}
+          </strong>
+        </div>
+
+        <hr>
+
+        <div style="
+          margin-top:10px;
+          line-height:1.6;
+          color:var(--text2);
+        ">
+          ${outcome}
+        </div>
+
+      </div>
+
+    `;
+
+}
