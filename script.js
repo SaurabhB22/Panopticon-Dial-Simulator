@@ -654,27 +654,27 @@ setInterval(tick, 850);
 
 window.addEventListener('resize', drawTrend);
 
-async function analyzeDataset(){
+async function analyzeDataset() {
 
   const input =
     document.getElementById('datasetFile');
 
   const file = input.files[0];
 
-  if(!file){
+  if (!file) {
     alert("Select a file first");
     return;
   }
 
   let records = [];
 
-  if(file.name.endsWith(".json")){
+  if (file.name.endsWith(".json")) {
     records = await loadJSON(file);
   }
-  else if(file.name.endsWith(".csv")){
+  else if (file.name.endsWith(".csv")) {
     records = await loadCSV(file);
   }
-  else if(file.name.endsWith(".pdf")){
+  else if (file.name.endsWith(".pdf")) {
     records = await loadPDF(file);
   }
 
@@ -888,17 +888,17 @@ function processDataset(records) {
 
 }
 
-function renderHeatmap(){
+function renderHeatmap() {
 
   const container =
     document.getElementById("heatmapContainer");
 
-  if(!container) return;
+  if (!container) return;
 
   const level = dial;
 
   container.innerHTML =
-    INDIA_DATA.cities.map(city=>{
+    INDIA_DATA.cities.map(city => {
 
       let intensity =
         Math.min(
@@ -913,8 +913,8 @@ function renderHeatmap(){
         intensity > 80
           ? "#ff4444"
           : intensity > 50
-          ? "#f0a010"
-          : "#22dd0a";
+            ? "#f0a010"
+            : "#22dd0a";
 
       return `
         <div class="heat-city">
@@ -967,32 +967,32 @@ const OCCUPATIONS = [
   "Social Worker"
 ];
 
-function generateCitizen(){
+function generateCitizen() {
 
   const name =
     CITIZEN_NAMES[
-      Math.floor(
-        Math.random()*CITIZEN_NAMES.length
-      )
+    Math.floor(
+      Math.random() * CITIZEN_NAMES.length
+    )
     ];
 
   const occupation =
     OCCUPATIONS[
-      Math.floor(
-        Math.random()*OCCUPATIONS.length
-      )
+    Math.floor(
+      Math.random() * OCCUPATIONS.length
+    )
     ];
 
   const city =
     INDIA_DATA.cities[
       Math.floor(
-        Math.random()*INDIA_DATA.cities.length
+        Math.random() * INDIA_DATA.cities.length
       )
     ].name;
 
   const age =
     Math.floor(
-      Math.random()*45
+      Math.random() * 45
     ) + 18;
 
   const scans =
@@ -1066,7 +1066,7 @@ function generateCitizen(){
 
 }
 
-function generateFutureProjection(){
+function generateFutureProjection() {
 
   const surveillance =
     Math.round(
@@ -1108,12 +1108,12 @@ function generateFutureProjection(){
   let verdict =
     "Balanced Digital Society";
 
-  if(dial > 70){
+  if (dial > 70) {
     verdict =
       "High Surveillance State";
   }
 
-  if(dial > 85){
+  if (dial > 85) {
     verdict =
       "Panopticon Scenario";
   }
@@ -1178,7 +1178,7 @@ function generateFutureProjection(){
 
 }
 
-function generatePolicyAdvice(){
+function generatePolicyAdvice() {
 
   const m = metrics(dial);
 
@@ -1186,7 +1186,7 @@ function generatePolicyAdvice(){
   let impact = "";
   let riskLevel = "";
 
-  if(dial < 30){
+  if (dial < 30) {
 
     riskLevel = "LOW";
 
@@ -1197,7 +1197,7 @@ function generatePolicyAdvice(){
       "+12% threat detection , -3% civil liberty impact";
 
   }
-  else if(dial < 60){
+  else if (dial < 60) {
 
     riskLevel = "MODERATE";
 
@@ -1208,7 +1208,7 @@ function generatePolicyAdvice(){
       "+6% threat detection , +4% public trust";
 
   }
-  else if(dial < 80){
+  else if (dial < 80) {
 
     riskLevel = "HIGH";
 
@@ -1219,7 +1219,7 @@ function generatePolicyAdvice(){
       "-18% false positives , +15% civil liberty index";
 
   }
-  else{
+  else {
 
     riskLevel = "CRITICAL";
 
@@ -1296,7 +1296,7 @@ function generatePolicyAdvice(){
     `;
 }
 
-function simulateHistoricalEvent(){
+function simulateHistoricalEvent() {
 
   const event =
     document.getElementById(
@@ -1308,7 +1308,7 @@ function simulateHistoricalEvent(){
   let liberty = "";
   let outcome = "";
 
-  if(event === "mumbai"){
+  if (event === "mumbai") {
 
     title =
       "Mumbai Attacks 2008";
@@ -1326,12 +1326,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 70
-      ? "Attack preparation detected earlier through surveillance systems."
-      : "Limited detection capability before attack execution.";
+        ? "Attack preparation detected earlier through surveillance systems."
+        : "Limited detection capability before attack execution.";
 
   }
 
-  if(event === "covid"){
+  if (event === "covid") {
 
     title =
       "COVID Lockdown";
@@ -1349,12 +1349,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 60
-      ? "Movement tracking improves containment but reduces privacy."
-      : "Higher privacy but weaker mobility monitoring.";
+        ? "Movement tracking improves containment but reduces privacy."
+        : "Higher privacy but weaker mobility monitoring.";
 
   }
 
-  if(event === "farmers"){
+  if (event === "farmers") {
 
     title =
       "Farmers Protest";
@@ -1372,12 +1372,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 70
-      ? "Large-scale participant monitoring and profiling risk."
-      : "Lower surveillance with stronger civil-liberty protections.";
+        ? "Large-scale participant monitoring and profiling risk."
+        : "Lower surveillance with stronger civil-liberty protections.";
 
   }
 
-  if(event === "delhi"){
+  if (event === "delhi") {
 
     title =
       "Delhi Riots 2020";
@@ -1395,12 +1395,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 65
-      ? "More suspects identified through cameras and FRT."
-      : "Lower monitoring but reduced profiling concerns.";
+        ? "More suspects identified through cameras and FRT."
+        : "Lower monitoring but reduced profiling concerns.";
 
   }
 
-  if(event === "cyber"){
+  if (event === "cyber") {
 
     title =
       "National Cyber Attack";
@@ -1418,8 +1418,8 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 50
-      ? "Enhanced network monitoring improves threat response."
-      : "Slower detection but stronger privacy guarantees.";
+        ? "Enhanced network monitoring improves threat response."
+        : "Slower detection but stronger privacy guarantees.";
 
   }
 
@@ -1471,247 +1471,451 @@ function simulateHistoricalEvent(){
 }
 
 const eyeCanvas =
-document.getElementById("surveillanceEyeCanvas");
+  document.getElementById("surveillanceEyeCanvas");
 
-if(eyeCanvas){
+if (eyeCanvas) {
 
-const ctx =
-eyeCanvas.getContext("2d");
+  const ctx =
+    eyeCanvas.getContext("2d");
 
-eyeCanvas.width = 700;
-eyeCanvas.height = 350;
+  eyeCanvas.width = 700;
+  eyeCanvas.height = 350;
 
-let rot = 0;
+  let rot = 0;
 
-function drawEye(){
+  function drawEye() {
 
-ctx.clearRect(0,0,700,350);
+    ctx.clearRect(0, 0, 700, 350);
 
-const cx = 350;
-const cy = 175;
+    const cx = 350;
+    const cy = 175;
 
-/* HUD RING 1 */
+    /* HUD RING 1 */
 
-ctx.save();
+    ctx.save();
 
-ctx.translate(cx,cy);
+    ctx.translate(cx, cy);
 
-ctx.rotate(rot);
+    ctx.rotate(rot);
 
-for(let i=0;i<120;i++){
+    for (let i = 0; i < 120; i++) {
 
-ctx.strokeStyle =
-"rgba(24,184,200,.25)";
+      ctx.strokeStyle =
+        "rgba(24,184,200,.25)";
 
-ctx.beginPath();
+      ctx.beginPath();
 
-ctx.arc(
-0,
-0,
-90,
-(i*3)*Math.PI/180,
-(i*3+1)*Math.PI/180
-);
+      ctx.arc(
+        0,
+        0,
+        90,
+        (i * 3) * Math.PI / 180,
+        (i * 3 + 1) * Math.PI / 180
+      );
 
-ctx.stroke();
+      ctx.stroke();
+
+    }
+
+    ctx.restore();
+
+    /* HUD RING 2 */
+
+    ctx.save();
+
+    ctx.translate(cx, cy);
+
+    ctx.rotate(-rot * 1.4);
+
+    ctx.strokeStyle =
+      "rgba(24,184,200,.5)";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 70, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.restore();
+
+    /* SCAN BEAM */
+
+    ctx.save();
+
+    ctx.translate(cx, cy);
+
+    ctx.rotate(rot * 2);
+
+    const beam =
+      ctx.createLinearGradient(
+        0, 0, 130, 0
+      );
+
+    beam.addColorStop(
+      0,
+      "rgba(24,184,200,0)"
+    );
+
+    beam.addColorStop(
+      .5,
+      "rgba(24,184,200,.9)"
+    );
+
+    beam.addColorStop(
+      1,
+      "rgba(24,184,200,0)"
+    );
+
+    ctx.strokeStyle = beam;
+    ctx.lineWidth = 5;
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(130, 0);
+    ctx.stroke();
+
+    ctx.restore();
+
+    /* IRIS */
+
+    const iris =
+      ctx.createRadialGradient(
+        cx, cy, 10,
+        cx, cy, 90
+      );
+
+    iris.addColorStop(0, "#ffffff");
+    iris.addColorStop(.1, "#9fffff");
+    iris.addColorStop(.4, "#18b8c8");
+    iris.addColorStop(1, "#00181c");
+
+    ctx.fillStyle = iris;
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 85, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* ENERGY HALO */
+
+    const halo =
+      ctx.createRadialGradient(
+        cx,
+        cy,
+        90,
+        cx,
+        cy,
+        180
+      );
+
+    halo.addColorStop(
+      0,
+      "rgba(24,184,200,.18)"
+    );
+
+    halo.addColorStop(
+      0.5,
+      "rgba(24,184,200,.05)"
+    );
+
+    halo.addColorStop(
+      1,
+      "rgba(24,184,200,0)"
+    );
+
+    ctx.fillStyle = halo;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      cx,
+      cy,
+      180,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+    /* PUPIL */
+
+    let offset = 0;
+
+    const slider =
+      document.getElementById("slider");
+
+    if (slider) {
+
+      offset =
+        ((Number(slider.value) - 50) / 50) * 25;
+
+    }
+
+    ctx.fillStyle = "#000";
+
+    ctx.beginPath();
+    ctx.arc(
+      cx + offset,
+      cy,
+      35,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+    /* TARGETING MARKS */
+
+    ctx.strokeStyle =
+      "#18b8c8";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 105, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(24,184,200,.15)";
+    ctx.stroke();
+    /* PARTICLES */
+
+    for (let i = 0; i < 40; i++) {
+
+      const a =
+        (i * 9 + rot * 150)
+        * Math.PI / 180;
+
+      const r =
+        110 +
+        Math.sin(rot + i) * 12;
+
+      const x =
+        cx +
+        Math.cos(a) * r;
+
+      const y =
+        cy +
+        Math.sin(a) * r;
+
+      ctx.fillStyle =
+        "#18b8c8";
+
+      ctx.fillRect(
+        x,
+        y,
+        2,
+        2
+      );
+
+    }
+
+    rot += 0.01;
+
+    requestAnimationFrame(drawEye);
+
+  }
+
+  drawEye();
 
 }
 
-ctx.restore();
+const feeds = [
 
-/* HUD RING 2 */
+  // INDIA
 
-ctx.save();
+  "https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms",
 
-ctx.translate(cx,cy);
+  "https://feeds.feedburner.com/ndtvnews-top-stories",
 
-ctx.rotate(-rot*1.4);
+  "https://www.thehindu.com/news/national/feeder/default.rss",
 
-ctx.strokeStyle =
-"rgba(24,184,200,.5)";
+  "https://indianexpress.com/section/india/feed/",
 
-ctx.lineWidth = 2;
+  "https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml",
 
-ctx.beginPath();
-ctx.arc(0,0,70,0,Math.PI*2);
-ctx.stroke();
+  "https://www.news18.com/rss/india.xml",
 
-ctx.restore();
+  "https://www.firstpost.com/india/feed",
 
-/* SCAN BEAM */
+  "https://feeds.feedburner.com/ScrollinArticles.rss",
 
-ctx.save();
+  "https://www.deccanherald.com/rss/national.rss",
 
-ctx.translate(cx,cy);
+  "https://www.livemint.com/rss/news",
 
-ctx.rotate(rot*2);
+  // CYBERSECURITY
 
-const beam =
-ctx.createLinearGradient(
-0,0,130,0
-);
+  "https://feeds.feedburner.com/TheHackersNews",
 
-beam.addColorStop(
-0,
-"rgba(24,184,200,0)"
-);
+  "https://www.bleepingcomputer.com/feed/",
 
-beam.addColorStop(
-.5,
-"rgba(24,184,200,.9)"
-);
+  "https://cybernews.com/feed",
 
-beam.addColorStop(
-1,
-"rgba(24,184,200,0)"
-);
+  "https://krebsonsecurity.com/feed/",
 
-ctx.strokeStyle = beam;
-ctx.lineWidth = 5;
+  "https://www.darkreading.com/rss.xml",
 
-ctx.beginPath();
-ctx.moveTo(0,0);
-ctx.lineTo(130,0);
-ctx.stroke();
+  // WORLD NEWS
 
-ctx.restore();
+  "https://rss.cnn.com/rss/edition.rss",
 
-/* IRIS */
+  "https://feeds.bbci.co.uk/news/world/rss.xml",
 
-const iris =
-ctx.createRadialGradient(
-cx,cy,10,
-cx,cy,90
-);
+  "https://www.aljazeera.com/xml/rss/all.xml",
 
-iris.addColorStop(0,"#ffffff");
-iris.addColorStop(.1,"#9fffff");
-iris.addColorStop(.4,"#18b8c8");
-iris.addColorStop(1,"#00181c");
+  "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 
-ctx.fillStyle = iris;
+  "https://feeds.skynews.com/feeds/rss/world.xml",
 
-ctx.beginPath();
-ctx.arc(cx,cy,85,0,Math.PI*2);
-ctx.fill();
+  "https://www.theguardian.com/world/rss",
 
-/* ENERGY HALO */
+  "https://www.reutersagency.com/feed/?best-topics=world&post_type=best",
 
-const halo =
-ctx.createRadialGradient(
-cx,
-cy,
-90,
-cx,
-cy,
-180
-);
+  // TECHNOLOGY + AI
 
-halo.addColorStop(
-0,
-"rgba(24,184,200,.18)"
-);
+  "https://techcrunch.com/feed/",
 
-halo.addColorStop(
-0.5,
-"rgba(24,184,200,.05)"
-);
+  "https://www.wired.com/feed/rss",
 
-halo.addColorStop(
-1,
-"rgba(24,184,200,0)"
-);
+  "https://www.theverge.com/rss/index.xml",
 
-ctx.fillStyle = halo;
+  "https://venturebeat.com/feed/",
 
-ctx.beginPath();
+  // SECURITY + DEFENSE
 
-ctx.arc(
-cx,
-cy,
-180,
-0,
-Math.PI*2
-);
+  "https://www.defensenews.com/arc/outboundfeeds/rss/",
 
-ctx.fill();
+  "https://breakingdefense.com/feed/",
 
-/* PUPIL */
+  "https://www.securityweek.com/feed/",
 
-let offset = 0;
+  "https://www.csoonline.com/feed"
+];
 
-const slider =
-document.getElementById("slider");
+async function refreshNewsFeed() {
 
-if(slider){
+  const panel =
+    document.getElementById(
+      "newsFeedPanel"
+    );
 
-offset =
-((Number(slider.value)-50)/50)*25;
+  panel.innerHTML =
+    "<div class='news-card'>Loading...</div>";
 
-}
+  try {
 
-ctx.fillStyle="#000";
+    const API_KEY =
+      "pub_1309609975124228a7c587d07add082b";
 
-ctx.beginPath();
-ctx.arc(
-cx+offset,
-cy,
-35,
-0,
-Math.PI*2
-);
+    const url =
 
-ctx.fill();
+      `https://newsdata.io/api/1/news?apikey=${API_KEY}
+      &q=surveillance OR cybercrime OR privacy OR security
+      &language=en`;
 
-/* TARGETING MARKS */
+    const response =
+      await fetch(url);
 
-ctx.strokeStyle =
-"#18b8c8";
+    const data =
+      await response.json();
+    document.getElementById(
+      "lastRefreshTime"
+    ).innerHTML =
 
-ctx.lineWidth = 2;
+      "Last Updated: " +
+      new Date()
+        .toLocaleTimeString();
 
-ctx.beginPath();
-ctx.arc(cx,cy,105,0,Math.PI*2);
-ctx.strokeStyle="rgba(24,184,200,.15)";
-ctx.stroke();
-/* PARTICLES */
+    if (!data.results) {
 
-for(let i=0;i<40;i++){
+      throw new Error(
+        "No news returned"
+      );
 
-const a =
-(i*9+rot*150)
-*Math.PI/180;
+    }
 
-const r =
-110+
-Math.sin(rot+i)*12;
+    panel.innerHTML =
 
-const x =
-cx+
-Math.cos(a)*r;
+      data.results
+        .slice(0, 10)
+        .map(news => `
 
-const y =
-cy+
-Math.sin(a)*r;
+        <div class="news-card">
 
-ctx.fillStyle =
-"#18b8c8";
+          <div class="news-title">
+            ${news.title}
+          </div>
 
-ctx.fillRect(
-x,
-y,
-2,
-2
-);
+          <div class="news-source">
+            ${news.source_id}
+          </div>
+
+          <div style="
+            margin-top:6px;
+            color:var(--text2);
+            font-size:9px;
+          ">
+            ${news.description ||
+          ""
+          }
+          </div>
+
+          <a
+            href="${news.link}"
+            target="_blank"
+            style="
+            color:var(--cyan);
+            ">
+            Read More
+          </a>
+
+        </div>
+
+      `)
+        .join("");
+
+  }
+  catch (error) {
+
+    console.error(error);
+
+    panel.innerHTML =
+
+      "<div class='news-card'>Unable to load live news.</div>";
+
+  }
 
 }
 
-rot += 0.01;
+refreshNewsFeed();
 
-requestAnimationFrame(drawEye);
-
+if (window.newsTimer) {
+  clearInterval(window.newsTimer);
 }
 
-drawEye();
+window.newsTimer =
+  setInterval(
+    refreshNewsFeed,
+    60000
+  );
 
-}
+  let secondsLeft = 60;
+
+setInterval(()=>{
+
+  const el =
+    document.getElementById(
+      "feedStatus"
+    );
+
+  if(!el) return;
+
+  el.innerHTML =
+    "● LIVE • Refresh in " +
+    secondsLeft +
+    "s";
+
+  secondsLeft--;
+
+  if(secondsLeft < 0){
+    secondsLeft = 60;
+  }
+
+},1000);
