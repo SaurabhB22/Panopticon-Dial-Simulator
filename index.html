@@ -28,15 +28,17 @@
     <div class="prompt">click to begin</div>
   </div>
   <div class="layout">
-  <div id="dashboard" style="background: #1a1a1a; color: #00ff00; padding: 20px; border-bottom: 2px solid #333; font-family: 'IBM Plex Mono', monospace;">
-     <h3> style="margin-top: 0;"> SYSTEM STATUS: MONITORING </h3>
-     <div style="display: flex; gap: 20px;">
+    <div id="dashboard" style="background: #1a1a1a; color: #00ff00; padding: 20px; border-bottom: 2px solid #333; font-family: 'IBM Plex Mono', monospace; width: 100%; box-sizing: border-box;">
+     <h3 style="margin-top: 0;"> SYSTEM STATUS: MONITORING </h3>
+      <div style="display: flex; gap: 20px;">
         <p>Threats Detected: <span id="threat-count">0</span></p>
         <p>Innocent Flagged:<span id="innocent-count">0</span></p>
-     </div>
-     <button onclick="clearlogs()" style="cursor: pointer; background: #ff4444; border: none; padding: 8px 15px; color: White; font-weight: bold;">Clear History</button>
-  </div>
-  <div id="logs" style="padding: 20px; color: #ddd; font-family: 'IBM Plex Mono', monospace;"></div>
+      </div>
+      <button onclick="clearlogs()"
+        style="cursor: pointer; background: #ff4444; border: none; padding: 8px 15px; color: White; font-weight: bold;">Clear
+        History</button>
+    </div>
+    <div id="logs" style="padding: 20px; color: #ddd; font-family: 'IBM Plex Mono', monospace;"></div>
 
     <header>
       <div class="hlogo">Panopticon</div>
@@ -74,8 +76,8 @@
       <div class="afl red" id="flR"></div>
       <div class="afl grn" id="flG"></div>
       <div id="surveillanceEyeBG">
-    <canvas id="surveillanceEyeCanvas"></canvas>
-</div>
+        <canvas id="surveillanceEyeCanvas"></canvas>
+      </div>
 
       <div class="dial-wrap">
         <canvas id="dialCanvas" width="260" height="260"></canvas>
@@ -140,26 +142,22 @@
           <div id="crimeStats"></div>
         </div>
       </div>
-     <div class="rpanel" id="tab-laws">
-  <div style="flex:1;overflow-y:auto;padding:12px 14px">
-    <div class="lbl">Legal Framework</div>
-    <div id="legalPanel"></div>
-  </div>
-</div>
+      <div class="rpanel" id="tab-laws">
+        <div style="flex:1;overflow-y:auto;padding:12px 14px">
+          <div class="lbl">Legal Framework</div>
+          <div id="legalPanel"></div>
+        </div>
+      </div>
 
-<div class="rpanel" id="tab-upload">
+      <div class="rpanel" id="tab-upload">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      Criminal Dataset Analyzer
-    </div>
+          <div class="lbl">
+            Criminal Dataset Analyzer
+          </div>
 
-    <input
-      type="file"
-      id="datasetFile"
-      accept=".csv,.json,.pdf"
-      style="
+          <input type="file" id="datasetFile" accept=".csv,.json,.pdf" style="
       width:100%;
       margin-bottom:12px;
       padding:8px;
@@ -168,9 +166,7 @@
       border:1px solid #243538;
     ">
 
-    <button
-      onclick="analyzeDataset()"
-      style="
+          <button onclick="analyzeDataset()" style="
       width:100%;
       padding:10px;
       border:none;
@@ -179,42 +175,40 @@
       cursor:pointer;
       font-weight:bold;
     ">
-      Analyze Dataset
-    </button>
+            Analyze Dataset
+          </button>
 
-    <div id="analysisResults" style="margin-top:15px"></div>
+          <div id="analysisResults" style="margin-top:15px"></div>
 
-  </div>
+        </div>
 
-</div>
-<div class="rpanel" id="tab-heatmap">
+      </div>
+      <div class="rpanel" id="tab-heatmap">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      India Surveillance Heatmap
-    </div>
+          <div class="lbl">
+            India Surveillance Heatmap
+          </div>
 
-    <div id="heatmapContainer"></div>
+          <div id="heatmapContainer"></div>
 
-    <div style="margin-top:12px;font-size:10px;color:var(--text2)">
-      Surveillance intensity changes dynamically with the national surveillance dial.
-    </div>
+          <div style="margin-top:12px;font-size:10px;color:var(--text2)">
+            Surveillance intensity changes dynamically with the national surveillance dial.
+          </div>
 
-  </div>
+        </div>
 
-</div>
-<div class="rpanel" id="tab-citizen">
+      </div>
+      <div class="rpanel" id="tab-citizen">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      Citizen Life Simulator
-    </div>
+          <div class="lbl">
+            Citizen Life Simulator
+          </div>
 
-    <button
-      onclick="generateCitizen()"
-      style="
+          <button onclick="generateCitizen()" style="
       width:100%;
       padding:10px;
       border:none;
@@ -223,28 +217,24 @@
       cursor:pointer;
       font-weight:bold;
       ">
-      Generate Citizen
-    </button>
+            Generate Citizen
+          </button>
 
-    <div
-      id="citizenCard"
-      style="margin-top:15px">
-    </div>
+          <div id="citizenCard" style="margin-top:15px">
+          </div>
 
-  </div>
+        </div>
 
-</div>
-<div class="rpanel" id="tab-future">
+      </div>
+      <div class="rpanel" id="tab-future">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      India 2030 Projection
-    </div>
+          <div class="lbl">
+            India 2030 Projection
+          </div>
 
-    <button
-      onclick="generateFutureProjection()"
-      style="
+          <button onclick="generateFutureProjection()" style="
       width:100%;
       padding:10px;
       border:none;
@@ -253,28 +243,24 @@
       cursor:pointer;
       font-weight:bold;
       ">
-      Predict 2030
-    </button>
+            Predict 2030
+          </button>
 
-    <div
-      id="futureProjection"
-      style="margin-top:15px">
-    </div>
+          <div id="futureProjection" style="margin-top:15px">
+          </div>
 
-  </div>
+        </div>
 
-</div>
-<div class="rpanel" id="tab-advisor">
+      </div>
+      <div class="rpanel" id="tab-advisor">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      AI Policy Advisor
-    </div>
+          <div class="lbl">
+            AI Policy Advisor
+          </div>
 
-    <button
-      onclick="generatePolicyAdvice()"
-      style="
+          <button onclick="generatePolicyAdvice()" style="
       width:100%;
       padding:10px;
       border:none;
@@ -283,28 +269,24 @@
       cursor:pointer;
       font-weight:bold;
       ">
-      Generate Recommendation
-    </button>
+            Generate Recommendation
+          </button>
 
-    <div
-      id="policyAdvisor"
-      style="margin-top:15px">
-    </div>
+          <div id="policyAdvisor" style="margin-top:15px">
+          </div>
 
-  </div>
+        </div>
 
-</div>
-<div class="rpanel" id="tab-history">
+      </div>
+      <div class="rpanel" id="tab-history">
 
-  <div style="padding:12px 14px;overflow-y:auto">
+        <div style="padding:12px 14px;overflow-y:auto">
 
-    <div class="lbl">
-      Historical Event Simulator
-    </div>
+          <div class="lbl">
+            Historical Event Simulator
+          </div>
 
-    <select
-      id="historicalEvent"
-      style="
+          <select id="historicalEvent" style="
       width:100%;
       padding:8px;
       margin-bottom:10px;
@@ -313,31 +295,29 @@
       border:1px solid #243538;
       ">
 
-      <option value="mumbai">
-        Mumbai Attacks 2008
-      </option>
+            <option value="mumbai">
+              Mumbai Attacks 2008
+            </option>
 
-      <option value="covid">
-        COVID Lockdown
-      </option>
+            <option value="covid">
+              COVID Lockdown
+            </option>
 
-      <option value="farmers">
-        Farmers Protest
-      </option>
+            <option value="farmers">
+              Farmers Protest
+            </option>
 
-      <option value="delhi">
-        Delhi Riots 2020
-      </option>
+            <option value="delhi">
+              Delhi Riots 2020
+            </option>
 
-      <option value="cyber">
-        National Cyber Attack
-      </option>
+            <option value="cyber">
+              National Cyber Attack
+            </option>
 
-    </select>
+          </select>
 
-    <button
-      onclick="simulateHistoricalEvent()"
-      style="
+          <button onclick="simulateHistoricalEvent()" style="
       width:100%;
       padding:10px;
       border:none;
@@ -346,17 +326,15 @@
       cursor:pointer;
       font-weight:bold;
       ">
-      Run Simulation
-    </button>
+            Run Simulation
+          </button>
 
-    <div
-      id="historyResults"
-      style="margin-top:15px">
-    </div>
+          <div id="historyResults" style="margin-top:15px">
+          </div>
 
-  </div>
+        </div>
 
-</div>
+      </div>
     </div>
     <footer>
       <div class="fcell">
