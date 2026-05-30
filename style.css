@@ -1188,3 +1188,25 @@ input[type=range]:hover::-webkit-slider-thumb {
   height:100%;
   transition:width .5s ease;
 }
+
+.news-link{
+  color:#ffffff;
+  text-decoration:none;
+  cursor:pointer;
+  display:block;
+  width:100%;
+}
+
+.news-link:hover{
+  color:#18b8c8;
+  text-decoration:underline;
+}
+
+.news-card{
+  position:relative;
+  z-index:999;
+}
+
+.news-card a{
+  pointer-events:auto !important;
+}

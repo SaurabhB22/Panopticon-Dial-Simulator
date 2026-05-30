@@ -503,20 +503,20 @@ function drawTrend() {
   if (!wrap) return;
   const tc = document.getElementById('trendCanvas');
   const W = wrap.clientWidth;
-  const H = 100; 
+  const H = 100;
   if (W <= 0 || H <= 0) return;
   tc.width = W; tc.height = H;
   const ctx = tc.getContext('2d');
   ctx.clearRect(0, 0, W, H);
   if (trendFPR.length < 2) return;
 
-  ctx.strokeStyle = 'rgba(26, 48, 56, 0.3)'; 
+  ctx.strokeStyle = 'rgba(26, 48, 56, 0.3)';
   ctx.lineWidth = 0.8;
   for (let i = 0; i <= 4; i++) {
     const y = (i / 4) * (H - 20) + 15;
-    ctx.beginPath(); 
-    ctx.moveTo(0, y); 
-    ctx.lineTo(W, y); 
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
     ctx.stroke();
   }
 
@@ -535,7 +535,7 @@ function drawTrend() {
       const y = (H - 20) - (v / 100) * (H - 30) + 15;
       i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     });
-    ctx.strokeStyle = col; 
+    ctx.strokeStyle = col;
     ctx.lineWidth = 1.6;
     ctx.shadowColor = col;
     ctx.shadowBlur = 6;
@@ -1799,8 +1799,25 @@ async function refreshNewsFeed() {
     }
 
     panel.innerHTML = data.results.slice(0, 10).map(news => `
-      <div class="news-card">
-        <div class="news-title">${news.title}</div>
+    <div
+class="news-card"
+onclick="window.open('${news.link}','_blank')"
+style="cursor:pointer;">
+     <div class="news-title">
+  <a
+    href="${news.link || '#'}"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="news-link">
+
+    ${news.title}
+
+  </a>
+</div>
+
+<div class="news-source">
+  Source: ${news.source_id || 'Unknown'}
+</div>
         <div class="news-source">${news.source_id || "NEWS"}</div>
         <div style="margin-top:6px;color:var(--text2);font-size:9px;">
           ${news.description || ""}
@@ -1817,24 +1834,24 @@ async function refreshNewsFeed() {
     const mockFeed = [];
     if (dial > 75) {
       mockFeed.push(
-        { title: "MHA Deploys Advanced Gait Analysis Across Major Railway Hubs", source_id: "NATGRID-News", description: "The Ministry of Home Affairs has authorized gait-recognition CCTV systems at 40 railway stations to identify suspicious behavior in real-time." },
-        { title: "DPDP Act Rules Finalized: State Agencies Granted Complete Exemptions", source_id: "Surveillance-Policy-Review", description: "National security agencies have been exempted from data storage limits and consent requirements, citing sovereign security priorities." },
-        { title: "Delhi & UP Police Deploy Real-Time FRT watchlists for Crowd Control", source_id: "GroundTruth-India", description: "Automated alert networks are flagged to municipal cameras, tracking watchlisted individuals at public gatherings." },
-        { title: "National Data Center Expands Storage for Internet Logs to 3 Years", source_id: "CERT-In-Updates", description: "New retention directives mandate ISPs to store complete network metadata and connection records for advanced intelligence lookup." }
+        { title: "MHA Deploys Advanced Gait Analysis Across Major Railway Hubs", source_id: "NATGRID-News", description: "The Ministry of Home Affairs has authorized gait-recognition CCTV systems at 40 railway stations to identify suspicious behavior in real-time.",  link:"https://www.mha.gov.in/" },
+        { title: "DPDP Act Rules Finalized: State Agencies Granted Complete Exemptions", source_id: "Surveillance-Policy-Review", description: "National security agencies have been exempted from data storage limits and consent requirements, citing sovereign security priorities.", link: "https://www.meity.gov.in/" },
+        { title: "Delhi & UP Police Deploy Real-Time FRT watchlists for Crowd Control", source_id: "GroundTruth-India", description: "Automated alert networks are flagged to municipal cameras, tracking watchlisted individuals at public gatherings." , link: "https://delhipolice.gov.in/"},
+        { title: "National Data Center Expands Storage for Internet Logs to 3 Years", source_id: "CERT-In-Updates", description: "New retention directives mandate ISPs to store complete network metadata and connection records for advanced intelligence lookup.",  link: "https://www.cert-in.org.in/" }
       );
     } else if (dial < 35) {
       mockFeed.push(
-        { title: "Supreme Court Restricts Bulk Telecom Metadata Seizure by Intelligence Units", source_id: "Judicial-Gazette", description: "A five-judge constitutional bench ruled that intercepting telecom metadata without a specific judicial warrant violates Puttaswamy standards." },
-        { title: "Citizen Coalition Launches Independent Audit of Municipal CCTV Networks", source_id: "IFF-Wire", description: "Digital rights organizations have started crowdsourcing camera locations to track unchecked surveillance footprint in metropolitan centers." },
-        { title: "Parliament Debates strict limits on AI Facial Recognition", source_id: "Sansad-Watch", description: "Opposition MPs introduce private member bill seeking a complete ban on automated facial scans in public places without written magistrate orders." },
-        { title: "NATGRID Database Operations limited to Judicial Oversight Cases", source_id: "Security-Legal-Brief", description: "New regulatory framework blocks automated cross-linkage of financial, travel and communication databases pending court audit." }
+        { title: "Supreme Court Restricts Bulk Telecom Metadata Seizure by Intelligence Units", source_id: "Judicial-Gazette", description: "A five-judge constitutional bench ruled that intercepting telecom metadata without a specific judicial warrant violates Puttaswamy standards.",  link: "https://main.sci.gov.in/" },
+        { title: "Citizen Coalition Launches Independent Audit of Municipal CCTV Networks", source_id: "IFF-Wire", description: "Digital rights organizations have started crowdsourcing camera locations to track unchecked surveillance footprint in metropolitan centers.", link: "https://internetfreedom.in/" },
+        { title: "Parliament Debates strict limits on AI Facial Recognition", source_id: "Sansad-Watch", description: "Opposition MPs introduce private member bill seeking a complete ban on automated facial scans in public places without written magistrate orders.",  link: "https://sansad.in/" },
+        { title: "NATGRID Database Operations limited to Judicial Oversight Cases", source_id: "Security-Legal-Brief", description: "New regulatory framework blocks automated cross-linkage of financial, travel and communication databases pending court audit.",  link: "https://natgrid.gov.in/" }
       );
     } else {
       mockFeed.push(
-        { title: "Smart City Safe City Mission Expands CCTV Density by 14%", source_id: "NCRB-Review", description: "Metropolitan statistics show rapid deployment of high-definition camera infrastructure to combat urban street crime." },
-        { title: "DigiYatra Airport Biometrics Coverage Crosses 50 Million Enrolled Citizens", source_id: "Civil-Aviation-News", description: "Expansion to tier-2 airports continues as travelers opt for paperless travel, spark legal privacy debates." },
-        { title: "UIDAI deploys Advanced Cyber Defense System for Biometrics Protection", source_id: "Aadhaar-Watch", description: "New server clustering and zero-knowledge architecture aimed at mitigating commercial database spoofing." },
-        { title: "Ministry of Electronics (MeitY) reviews IT Rules 2021 for Digital Platforms", source_id: "Gov-Tech-Journal", description: "Intermediary guidelines updated to streamline legal requests for encrypted messaging trace requests." }
+        { title: "Smart City Safe City Mission Expands CCTV Density by 14%", source_id: "NCRB-Review", description: "Metropolitan statistics show rapid deployment of high-definition camera infrastructure to combat urban street crime.",  link: "https://ncrb.gov.in/" },
+        { title: "DigiYatra Airport Biometrics Coverage Crosses 50 Million Enrolled Citizens", source_id: "Civil-Aviation-News", description: "Expansion to tier-2 airports continues as travelers opt for paperless travel, spark legal privacy debates.", link: "https://www.digiyatra.com/"},
+        { title: "UIDAI deploys Advanced Cyber Defense System for Biometrics Protection", source_id: "Aadhaar-Watch", description: "New server clustering and zero-knowledge architecture aimed at mitigating commercial database spoofing.",  link: "https://uidai.gov.in/" },
+        { title: "Ministry of Electronics (MeitY) reviews IT Rules 2021 for Digital Platforms", source_id: "Gov-Tech-Journal", description: "Intermediary guidelines updated to streamline legal requests for encrypted messaging trace requests.",  link: "https://www.meity.gov.in/" }
       );
     }
 
@@ -1860,7 +1877,7 @@ if (window.newsTimer) {
 window.newsTimer =
   setInterval(
     refreshNewsFeed,
-    60000
+    300000
   );
 
 let secondsLeft = 60;
@@ -1875,7 +1892,7 @@ setInterval(() => {
   if (!el) return;
 
   el.innerHTML =
-    "● LIVE • Refresh in " +
+    "LIVE *Refresh in " +
     secondsLeft +
     "s";
 
@@ -2083,7 +2100,7 @@ ${mood}
 
 }
 
-function calculateBudget(){
+function calculateBudget() {
 
   const cctv =
     Math.round(
@@ -2121,15 +2138,15 @@ function calculateBudget(){
   let assessment =
     "Sustainable Investment";
 
-  if(total > 15000)
+  if (total > 15000)
     assessment =
       "High Expenditure";
 
-  if(total > 20000)
+  if (total > 20000)
     assessment =
       "Aggressive Surveillance Spending";
 
-  if(total > 25000)
+  if (total > 25000)
     assessment =
       "National Priority Budget";
 
@@ -2196,7 +2213,7 @@ function calculateBudget(){
 }
 
 window.isMuted = false;
-window.toggleMute = function() {
+window.toggleMute = function () {
   window.isMuted = !window.isMuted;
   const btn = document.getElementById("muteBtn");
   if (btn) {
@@ -2238,41 +2255,41 @@ const CASE_OCCUPATIONS = [
 
 ];
 
-function generateCase(){
+function generateCase() {
 
   const name =
     CASE_NAMES[
-      Math.floor(
-        Math.random()*CASE_NAMES.length
-      )
+    Math.floor(
+      Math.random() * CASE_NAMES.length
+    )
     ];
 
   const occupation =
     CASE_OCCUPATIONS[
-      Math.floor(
-        Math.random()*CASE_OCCUPATIONS.length
-      )
+    Math.floor(
+      Math.random() * CASE_OCCUPATIONS.length
+    )
     ];
 
   const age =
     Math.floor(
-      Math.random()*40
+      Math.random() * 40
     ) + 18;
 
   const matchScore =
     Math.round(
-      60 + Math.random()*39
+      60 + Math.random() * 39
     );
 
   const detention =
     Math.round(
-      2 + Math.random()*22
+      2 + Math.random() * 22
     );
 
   const city =
     INDIA_DATA.cities[
       Math.floor(
-        Math.random()*
+        Math.random() *
         INDIA_DATA.cities.length
       )
     ].name;
@@ -2280,7 +2297,7 @@ function generateCase(){
   let outcome = "";
   let impact = "";
 
-  if(dial > 70){
+  if (dial > 70) {
 
     outcome =
       "False Positive";
@@ -2289,7 +2306,7 @@ function generateCase(){
       "Citizen incorrectly flagged by surveillance systems.";
 
   }
-  else{
+  else {
 
     outcome =
       "Cleared";
@@ -2358,17 +2375,17 @@ function generateCase(){
 
 }
 
-function renderGlobalComparison(){
+function renderGlobalComparison() {
 
   const newsFactor =
     Math.floor(
-      Math.random()*10
+      Math.random() * 10
     );
 
   const countries = [
 
     {
-      name:"China",
+      name: "China",
       score:
         Math.min(
           100,
@@ -2377,95 +2394,95 @@ function renderGlobalComparison(){
     },
 
     {
-      name:"India",
+      name: "India",
       score:
         Math.min(
           100,
           dial + Math.floor(
-            Math.random()*6
+            Math.random() * 6
           )
         )
     },
 
     {
-      name:"United States",
+      name: "United States",
       score:
         60 + Math.floor(
-          Math.random()*15
+          Math.random() * 15
         )
     },
 
     {
-      name:"United Kingdom",
+      name: "United Kingdom",
       score:
         55 + Math.floor(
-          Math.random()*12
+          Math.random() * 12
         )
     },
 
     {
-      name:"Russia",
+      name: "Russia",
       score:
         70 + Math.floor(
-          Math.random()*15
+          Math.random() * 15
         )
     },
 
     {
-      name:"Israel",
+      name: "Israel",
       score:
         72 + Math.floor(
-          Math.random()*12
+          Math.random() * 12
         )
     },
 
     {
-      name:"Singapore",
+      name: "Singapore",
       score:
         65 + Math.floor(
-          Math.random()*12
+          Math.random() * 12
         )
     },
 
     {
-      name:"South Korea",
+      name: "South Korea",
       score:
         50 + Math.floor(
-          Math.random()*12
+          Math.random() * 12
         )
     },
 
     {
-      name:"Japan",
+      name: "Japan",
       score:
         40 + Math.floor(
-          Math.random()*10
+          Math.random() * 10
         )
     },
 
     {
-      name:"Germany",
+      name: "Germany",
       score:
         35 + Math.floor(
-          Math.random()*10
+          Math.random() * 10
         )
     }
 
   ];
 
   countries.sort(
-    (a,b)=>
-      b.score-a.score
+    (a, b) =>
+      b.score - a.score
   );
 
   let indiaRank = 0;
 
   countries.forEach(
-    (c,i)=>{
-      if(
-        c.name==="India"
-      ){
-        indiaRank=i+1;
+    (c, i) => {
+      if (
+        c.name === "India"
+      ) {
+        indiaRank = i + 1;
       }
     }
   );
@@ -2489,7 +2506,7 @@ function renderGlobalComparison(){
 
         </div>
 
-        ${countries.map(country=>`
+        ${countries.map(country => `
 
           <div class="global-row">
 
@@ -2515,17 +2532,16 @@ function renderGlobalComparison(){
 
                 background:
 
-                ${
-                  country.score>85
-                  ? "#ff4444"
-                  :
+                ${country.score > 85
+        ? "#ff4444"
+        :
 
-                  country.score>65
-                  ? "#ffb347"
-                  :
+        country.score > 65
+          ? "#ffb347"
+          :
 
-                  "#22dd0a"
-                };
+          "#22dd0a"
+      };
                 ">
 
               </div>
