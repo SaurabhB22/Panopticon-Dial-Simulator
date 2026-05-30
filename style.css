@@ -1084,3 +1084,28 @@ input[type=range]:hover::-webkit-slider-thumb {
   justify-content: space-between;
   margin-bottom: 4px;
 }
+
+.budget-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.budget-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.budget-total{
+  color:var(--green-bright);
+  font-size:16px;
+  font-weight:bold;
+}
+
+.budget-warning{
+  color:var(--saffron);
+  margin-top:10px;
+  line-height:1.5;
+}
+

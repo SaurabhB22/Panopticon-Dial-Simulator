@@ -634,6 +634,7 @@ document.getElementById('slider').addEventListener('input', function () {
   if (activeTab === 'cities') renderCities();
   renderHeatmap();
   updateSentiment();
+  calculateBudget();
 }
 );
 
@@ -647,6 +648,7 @@ renderCities();
 renderLegal();
 renderHeatmap();
 updateSentiment();
+calculateBudget();
 renderMetricsLeft(metrics(50));
 renderFooter(metrics(50));
 addEvent('neutral', { t: 'Simulator initialised — drag the dial to set national policy', loc: 'National', src: 'SYSTEM' });
@@ -2111,6 +2113,118 @@ ${mood}
   ">
   ${description}
 </div>
+
+      </div>
+
+    `;
+
+}
+
+function calculateBudget(){
+
+  const cctv =
+    Math.round(
+      1000 + dial * 80
+    );
+
+  const facialRecognition =
+    Math.round(
+      500 + dial * 40
+    );
+
+  const natgrid =
+    Math.round(
+      1200 + dial * 35
+    );
+
+  const cyberMonitoring =
+    Math.round(
+      800 + dial * 30
+    );
+
+  const aiAnalytics =
+    Math.round(
+      600 + dial * 25
+    );
+
+  const total =
+
+    cctv +
+    facialRecognition +
+    natgrid +
+    cyberMonitoring +
+    aiAnalytics;
+
+  let assessment =
+    "Sustainable Investment";
+
+  if(total > 15000)
+    assessment =
+      "High Expenditure";
+
+  if(total > 20000)
+    assessment =
+      "Aggressive Surveillance Spending";
+
+  if(total > 25000)
+    assessment =
+      "National Priority Budget";
+
+  document
+    .getElementById(
+      "budgetPanel"
+    )
+    .innerHTML = `
+
+      <div class="budget-card">
+
+        <div class="budget-row">
+          <span>CCTV Network</span>
+          <strong>INR ${cctv} Cr</strong>
+        </div>
+
+        <div class="budget-row">
+          <span>Facial Recognition</span>
+          <strong>INR ${facialRecognition} Cr</strong>
+        </div>
+
+        <div class="budget-row">
+          <span>NATGRID Systems</span>
+          <strong>INR ${natgrid} Cr</strong>
+        </div>
+
+        <div class="budget-row">
+          <span>Cyber Monitoring</span>
+          <strong>INR ${cyberMonitoring} Cr</strong>
+        </div>
+
+        <div class="budget-row">
+          <span>AI Analytics</span>
+          <strong>INR ${aiAnalytics} Cr</strong>
+        </div>
+
+        <hr>
+
+        <div
+          class="budget-row budget-total">
+
+          <span>Total Budget</span>
+
+          <span>
+            INR ${total} Cr
+          </span>
+
+        </div>
+
+        <div class="budget-warning">
+
+          Budget Assessment:
+
+          <strong>
+            ${assessment}
+          </strong>
+
+        </div>
 
       </div>
 
