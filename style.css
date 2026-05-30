@@ -1109,6 +1109,7 @@ input[type=range]:hover::-webkit-slider-thumb {
   line-height:1.5;
 }
 
+<<<<<<< HEAD
 .cyber-btn {
   background: transparent;
   border: 1px solid var(--border3);
@@ -1135,3 +1136,29 @@ input[type=range]:hover::-webkit-slider-thumb {
   transform: scale(0.96);
 }
 
+=======
+.case-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.case-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.case-title{
+  color:var(--red);
+  font-size:11px;
+  margin-bottom:10px;
+}
+
+.case-outcome{
+  margin-top:10px;
+  padding:8px;
+  border-radius:4px;
+  background:#162022;
+}
+>>>>>>> 2670ddc (fixing bugs)

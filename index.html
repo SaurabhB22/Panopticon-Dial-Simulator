@@ -21,7 +21,7 @@
       <div></div>
       <div></div>
     </div>
-    <p>India Surveillance Policy Simulator<br>1.44 billion people. 126 FRT systems. Zero privacy law with teeth.</p>
+    <p>India Surveillance Policy Simulator<br>1.44 billion people. 126 FRT systems. Zero privacy law.</p>
     <div class="sub">Drag the dial. Watch what happens to threats — and to everyone else.<br>All figures sourced from
       NCRB 2023, IFF, NATGRID, SFLC.in, IAPP.</div>
     <div class="divline"></div>
@@ -122,6 +122,7 @@
         <button class="tab" onclick="setTab('news',this)">News</button>
         <button class="tab" onclick="setTab('sentiment',this)">Sentiment</button>
         <button class="tab" onclick="setTab('budget',this)">Budget</button>
+        <button class="tab" onclick="setTab('cases',this)">Cases</button>
       </div>
       <div class="rpanel show" id="tab-feed">
         <div class="feed" id="eventFeed"></div>
@@ -420,6 +421,32 @@
           </button>
 
           <div id="budgetPanel" style="margin-top:15px">
+          </div>
+
+        </div>
+
+      </div>
+      <div class="rpanel" id="tab-cases">
+
+        <div style="padding:12px 14px;overflow-y:auto">
+
+          <div class="lbl">
+            False Positive Case Generator
+          </div>
+
+          <button onclick="generateCase()" style="
+      width:100%;
+      padding:10px;
+      border:none;
+      background:#ff6464;
+      color:white;
+      cursor:pointer;
+      font-weight:bold;
+      ">
+            Generate Case
+          </button>
+
+          <div id="casePanel" style="margin-top:15px">
           </div>
 
         </div>

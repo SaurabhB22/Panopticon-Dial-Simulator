@@ -2193,6 +2193,7 @@ function calculateBudget(){
 
 }
 
+<<<<<<< HEAD
 
 window.isMuted = false;
 window.toggleMute = function() {
@@ -2207,3 +2208,154 @@ window.toggleMute = function() {
     window.playClickSound();
   }
 };
+=======
+const CASE_NAMES = [
+
+  "Rahul Sharma",
+  "Priya Verma",
+  "Arjun Patel",
+  "Neha Singh",
+  "Vikram Kumar",
+  "Ananya Rao",
+  "Rohan Mehta",
+  "Aditi Gupta",
+  "Kabir Joshi",
+  "Sneha Kapoor"
+
+];
+
+const CASE_OCCUPATIONS = [
+
+  "Student",
+  "Teacher",
+  "Doctor",
+  "Journalist",
+  "Software Engineer",
+  "Lawyer",
+  "Researcher",
+  "Business Owner",
+  "Farmer",
+  "Civil Servant"
+
+];
+
+function generateCase(){
+
+  const name =
+    CASE_NAMES[
+      Math.floor(
+        Math.random()*CASE_NAMES.length
+      )
+    ];
+
+  const occupation =
+    CASE_OCCUPATIONS[
+      Math.floor(
+        Math.random()*CASE_OCCUPATIONS.length
+      )
+    ];
+
+  const age =
+    Math.floor(
+      Math.random()*40
+    ) + 18;
+
+  const matchScore =
+    Math.round(
+      60 + Math.random()*39
+    );
+
+  const detention =
+    Math.round(
+      2 + Math.random()*22
+    );
+
+  const city =
+    INDIA_DATA.cities[
+      Math.floor(
+        Math.random()*
+        INDIA_DATA.cities.length
+      )
+    ].name;
+
+  let outcome = "";
+  let impact = "";
+
+  if(dial > 70){
+
+    outcome =
+      "False Positive";
+
+    impact =
+      "Citizen incorrectly flagged by surveillance systems.";
+
+  }
+  else{
+
+    outcome =
+      "Cleared";
+
+    impact =
+      "Additional verification prevented wrongful action.";
+
+  }
+
+  document
+    .getElementById(
+      "casePanel"
+    )
+    .innerHTML = `
+
+      <div class="case-card">
+
+        <div class="case-title">
+          Simulated Surveillance Case
+        </div>
+
+        <div class="case-row">
+          <span>Name</span>
+          <strong>${name}</strong>
+        </div>
+
+        <div class="case-row">
+          <span>Age</span>
+          <strong>${age}</strong>
+        </div>
+
+        <div class="case-row">
+          <span>Occupation</span>
+          <strong>${occupation}</strong>
+        </div>
+
+        <div class="case-row">
+          <span>City</span>
+          <strong>${city}</strong>
+        </div>
+
+        <div class="case-row">
+          <span>FRT Match Score</span>
+          <strong>${matchScore}%</strong>
+        </div>
+
+        <div class="case-row">
+          <span>Detention Time</span>
+          <strong>${detention} Hours</strong>
+        </div>
+
+        <div class="case-row">
+          <span>Outcome</span>
+          <strong>${outcome}</strong>
+        </div>
+
+        <div class="case-outcome">
+
+          ${impact}
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+>>>>>>> 2670ddc (fixing bugs)
