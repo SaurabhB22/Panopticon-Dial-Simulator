@@ -1595,6 +1595,47 @@ ctx.beginPath();
 ctx.arc(cx,cy,85,0,Math.PI*2);
 ctx.fill();
 
+/* ENERGY HALO */
+
+const halo =
+ctx.createRadialGradient(
+cx,
+cy,
+90,
+cx,
+cy,
+180
+);
+
+halo.addColorStop(
+0,
+"rgba(24,184,200,.18)"
+);
+
+halo.addColorStop(
+0.5,
+"rgba(24,184,200,.05)"
+);
+
+halo.addColorStop(
+1,
+"rgba(24,184,200,0)"
+);
+
+ctx.fillStyle = halo;
+
+ctx.beginPath();
+
+ctx.arc(
+cx,
+cy,
+180,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
 /* PUPIL */
 
 let offset = 0;
@@ -1629,13 +1670,10 @@ ctx.strokeStyle =
 
 ctx.lineWidth = 2;
 
-ctx.strokeRect(
-cx-105,
-cy-105,
-210,
-210
-);
-
+ctx.beginPath();
+ctx.arc(cx,cy,105,0,Math.PI*2);
+ctx.strokeStyle="rgba(24,184,200,.15)";
+ctx.stroke();
 /* PARTICLES */
 
 for(let i=0;i<40;i++){
