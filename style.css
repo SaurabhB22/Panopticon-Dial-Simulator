@@ -1160,3 +1160,31 @@ input[type=range]:hover::-webkit-slider-thumb {
   border-radius:4px;
   background:#162022;
 }
+
+.global-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.global-row{
+  margin-bottom:12px;
+}
+
+.global-label{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:4px;
+}
+
+.global-bar{
+  height:10px;
+  background:#162022;
+  border-radius:5px;
+  overflow:hidden;
+}
+
+.global-fill{
+  height:100%;
+  transition:width .5s ease;
+}

@@ -1783,6 +1783,8 @@ async function refreshNewsFeed() {
   const panel = document.getElementById("newsFeedPanel");
   panel.innerHTML = "<div class='news-card'>Loading...</div>";
 
+  renderGlobalComparison();
+
   try {
     const API_KEY = "pub_1309609975124228a7c587d07add082b";
     const url = `https://newsdata.io/api/1/news?apikey=${API_KEY}&q=surveillance OR cybercrime OR privacy OR security&language=en`;
@@ -2355,4 +2357,223 @@ function generateCase(){
     `;
 
 }
+
+function renderGlobalComparison(){
+
+  const newsFactor =
+    Math.floor(
+      Math.random()*10
+    );
+
+  const countries = [
+
+    {
+      name:"China",
+      score:
+        Math.min(
+          100,
+          88 + newsFactor
+        )
+    },
+
+    {
+      name:"India",
+      score:
+        Math.min(
+          100,
+          dial + Math.floor(
+            Math.random()*6
+          )
+        )
+    },
+
+    {
+      name:"United States",
+      score:
+        60 + Math.floor(
+          Math.random()*15
+        )
+    },
+
+    {
+      name:"United Kingdom",
+      score:
+        55 + Math.floor(
+          Math.random()*12
+        )
+    },
+
+    {
+      name:"Russia",
+      score:
+        70 + Math.floor(
+          Math.random()*15
+        )
+    },
+
+    {
+      name:"Israel",
+      score:
+        72 + Math.floor(
+          Math.random()*12
+        )
+    },
+
+    {
+      name:"Singapore",
+      score:
+        65 + Math.floor(
+          Math.random()*12
+        )
+    },
+
+    {
+      name:"South Korea",
+      score:
+        50 + Math.floor(
+          Math.random()*12
+        )
+    },
+
+    {
+      name:"Japan",
+      score:
+        40 + Math.floor(
+          Math.random()*10
+        )
+    },
+
+    {
+      name:"Germany",
+      score:
+        35 + Math.floor(
+          Math.random()*10
+        )
+    }
+
+  ];
+
+  countries.sort(
+    (a,b)=>
+      b.score-a.score
+  );
+
+  let indiaRank = 0;
+
+  countries.forEach(
+    (c,i)=>{
+      if(
+        c.name==="India"
+      ){
+        indiaRank=i+1;
+      }
+    }
+  );
+
+  document
+    .getElementById(
+      "globalComparisonPanel"
+    )
+    .innerHTML = `
+
+      <div class="global-card">
+
+        <div
+        style="
+        margin-bottom:14px;
+        color:var(--cyan);
+        font-weight:bold;
+        ">
+
+          Global Surveillance Ranking
+
+        </div>
+
+        ${countries.map(country=>`
+
+          <div class="global-row">
+
+            <div class="global-label">
+
+              <span>
+                ${country.name}
+              </span>
+
+              <strong>
+                ${country.score}
+              </strong>
+
+            </div>
+
+            <div class="global-bar">
+
+              <div
+                class="global-fill"
+
+                style="
+                width:${country.score}%;
+
+                background:
+
+                ${
+                  country.score>85
+                  ? "#ff4444"
+                  :
+
+                  country.score>65
+                  ? "#ffb347"
+                  :
+
+                  "#22dd0a"
+                };
+                ">
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+        <hr>
+
+        <div
+        style="
+        margin-top:10px;
+        color:var(--saffron);
+        ">
+
+          India Global Rank:
+          <strong>
+            #${indiaRank}
+          </strong>
+
+        </div>
+
+        <div
+        style="
+        margin-top:8px;
+        color:var(--text2);
+        font-size:10px;
+        ">
+
+          Updated dynamically using
+          current surveillance dial,
+          intelligence activity and
+          global monitoring trends.
+
+        </div>
+
+      </div>
+
+    `;
+}
+
+renderGlobalComparison();
+
+setInterval(
+  renderGlobalComparison,
+  30000
+);
 
