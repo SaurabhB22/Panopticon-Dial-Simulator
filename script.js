@@ -263,39 +263,32 @@ const EV_NEUTRAL = [
   { t: "Biometric verification service updated", loc: "Visakhapatnam", src: "UIDAI-Link" },
   { t: "National threat-monitoring dashboard refreshed", loc: "National", src: "Monitoring" }
 ];
-let threatCount=0;
-let innocentCount=0;
-function updatesimulator(){
-  let isThreat=Math.random() <0.3;
-  let event=isThreat ?
-     EV_THREAT[Math.floor(Math.random()*EV_THREAT.length)]:
-     EV_INNOCENT[Math.floor(Math.random()*EV_INNOCENT.length)];
-  if(isThreat){
-      threatCount++;
-      document.getElementById('threat-count').innerText=threatCount;
+let threatCount = 0;
+let innocentCount = 0;
+function updatesimulator() {
+  let isThreat = Math.random() < 0.3;
+  let event = isThreat ?
+    EV_THREAT[Math.floor(Math.random() * EV_THREAT.length)] :
+    EV_INNOCENT[Math.floor(Math.random() * EV_INNOCENT.length)];
+  if (isThreat) {
+    threatCount++;
+    document.getElementById('threat-count').innerText = threatCount;
   }
-  else{
+  else {
     innocentCount++;
-    document.getElementById('innocent-count').innerText=innocentCount;
+    document.getElementById('innocent-count').innerText = innocentCount;
   }
-let logDiv=document.getElementById('logs');
-let newEntryL='<div style="border-left: 3px solid ${isThreat ? "red" :"green"}; margin: 5px 0; padding-left: 10px;">${event.t}-location: ${event.loc}</div>';
-logDiv.innerHTML=newEntry+logDiv.innerHTML;
+  let logDiv = document.getElementById('logs');
+  let newEntryL = '<div style="border-left: 3px solid ${isThreat ? "red" :"green"}; margin: 5px 0; padding-left: 10px;">${event.t}-location: ${event.loc}</div>';
+  logDiv.innerHTML = newEntry + logDiv.innerHTML;
 }
-function clearlogs(){
-  threatCount=0;
-  innocentCount=0;
-  document.getElementById('threat-count').innerText=0;
-  document.getElementById('innocent-count').innerText=0;
-  document.getElementById('logs').innerHTML="";
+function clearlogs() {
+  threatCount = 0;
+  innocentCount = 0;
+  document.getElementById('threat-count').innerText = 0;
+  document.getElementById('innocent-count').innerText = 0;
+  document.getElementById('logs').innerHTML = "";
 }
-let dial=50, threatsT=0, innocentsT=0, running=false, tickN=0;
-let prevM=null;
-let trendFPR=[], trendCLI=[], trendDE=[];
-const TMAX=80;
-let popDots=[];
-const PDOTS=180;
-let activeTab='feed';
 let dial = 50, threatsT = 0, innocentsT = 0, running = false, tickN = 0;
 let prevM = null;
 let trendFPR = [], trendCLI = [], trendDE = [];
@@ -688,27 +681,27 @@ setInterval(tick, 850);
 
 window.addEventListener('resize', drawTrend);
 
-async function analyzeDataset(){
+async function analyzeDataset() {
 
   const input =
     document.getElementById('datasetFile');
 
   const file = input.files[0];
 
-  if(!file){
+  if (!file) {
     alert("Select a file first");
     return;
   }
 
   let records = [];
 
-  if(file.name.endsWith(".json")){
+  if (file.name.endsWith(".json")) {
     records = await loadJSON(file);
   }
-  else if(file.name.endsWith(".csv")){
+  else if (file.name.endsWith(".csv")) {
     records = await loadCSV(file);
   }
-  else if(file.name.endsWith(".pdf")){
+  else if (file.name.endsWith(".pdf")) {
     records = await loadPDF(file);
   }
 
@@ -922,17 +915,17 @@ function processDataset(records) {
 
 }
 
-function renderHeatmap(){
+function renderHeatmap() {
 
   const container =
     document.getElementById("heatmapContainer");
 
-  if(!container) return;
+  if (!container) return;
 
   const level = dial;
 
   container.innerHTML =
-    INDIA_DATA.cities.map(city=>{
+    INDIA_DATA.cities.map(city => {
 
       let intensity =
         Math.min(
@@ -947,8 +940,8 @@ function renderHeatmap(){
         intensity > 80
           ? "#ff4444"
           : intensity > 50
-          ? "#f0a010"
-          : "#22dd0a";
+            ? "#f0a010"
+            : "#22dd0a";
 
       return `
         <div class="heat-city">
@@ -1001,32 +994,32 @@ const OCCUPATIONS = [
   "Social Worker"
 ];
 
-function generateCitizen(){
+function generateCitizen() {
 
   const name =
     CITIZEN_NAMES[
-      Math.floor(
-        Math.random()*CITIZEN_NAMES.length
-      )
+    Math.floor(
+      Math.random() * CITIZEN_NAMES.length
+    )
     ];
 
   const occupation =
     OCCUPATIONS[
-      Math.floor(
-        Math.random()*OCCUPATIONS.length
-      )
+    Math.floor(
+      Math.random() * OCCUPATIONS.length
+    )
     ];
 
   const city =
     INDIA_DATA.cities[
       Math.floor(
-        Math.random()*INDIA_DATA.cities.length
+        Math.random() * INDIA_DATA.cities.length
       )
     ].name;
 
   const age =
     Math.floor(
-      Math.random()*45
+      Math.random() * 45
     ) + 18;
 
   const scans =
@@ -1100,7 +1093,7 @@ function generateCitizen(){
 
 }
 
-function generateFutureProjection(){
+function generateFutureProjection() {
 
   const surveillance =
     Math.round(
@@ -1142,12 +1135,12 @@ function generateFutureProjection(){
   let verdict =
     "Balanced Digital Society";
 
-  if(dial > 70){
+  if (dial > 70) {
     verdict =
       "High Surveillance State";
   }
 
-  if(dial > 85){
+  if (dial > 85) {
     verdict =
       "Panopticon Scenario";
   }
@@ -1212,7 +1205,7 @@ function generateFutureProjection(){
 
 }
 
-function generatePolicyAdvice(){
+function generatePolicyAdvice() {
 
   const m = metrics(dial);
 
@@ -1220,7 +1213,7 @@ function generatePolicyAdvice(){
   let impact = "";
   let riskLevel = "";
 
-  if(dial < 30){
+  if (dial < 30) {
 
     riskLevel = "LOW";
 
@@ -1231,7 +1224,7 @@ function generatePolicyAdvice(){
       "+12% threat detection , -3% civil liberty impact";
 
   }
-  else if(dial < 60){
+  else if (dial < 60) {
 
     riskLevel = "MODERATE";
 
@@ -1242,7 +1235,7 @@ function generatePolicyAdvice(){
       "+6% threat detection , +4% public trust";
 
   }
-  else if(dial < 80){
+  else if (dial < 80) {
 
     riskLevel = "HIGH";
 
@@ -1253,7 +1246,7 @@ function generatePolicyAdvice(){
       "-18% false positives , +15% civil liberty index";
 
   }
-  else{
+  else {
 
     riskLevel = "CRITICAL";
 
@@ -1330,7 +1323,7 @@ function generatePolicyAdvice(){
     `;
 }
 
-function simulateHistoricalEvent(){
+function simulateHistoricalEvent() {
 
   const event =
     document.getElementById(
@@ -1342,7 +1335,7 @@ function simulateHistoricalEvent(){
   let liberty = "";
   let outcome = "";
 
-  if(event === "mumbai"){
+  if (event === "mumbai") {
 
     title =
       "Mumbai Attacks 2008";
@@ -1360,12 +1353,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 70
-      ? "Attack preparation detected earlier through surveillance systems."
-      : "Limited detection capability before attack execution.";
+        ? "Attack preparation detected earlier through surveillance systems."
+        : "Limited detection capability before attack execution.";
 
   }
 
-  if(event === "covid"){
+  if (event === "covid") {
 
     title =
       "COVID Lockdown";
@@ -1383,12 +1376,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 60
-      ? "Movement tracking improves containment but reduces privacy."
-      : "Higher privacy but weaker mobility monitoring.";
+        ? "Movement tracking improves containment but reduces privacy."
+        : "Higher privacy but weaker mobility monitoring.";
 
   }
 
-  if(event === "farmers"){
+  if (event === "farmers") {
 
     title =
       "Farmers Protest";
@@ -1406,12 +1399,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 70
-      ? "Large-scale participant monitoring and profiling risk."
-      : "Lower surveillance with stronger civil-liberty protections.";
+        ? "Large-scale participant monitoring and profiling risk."
+        : "Lower surveillance with stronger civil-liberty protections.";
 
   }
 
-  if(event === "delhi"){
+  if (event === "delhi") {
 
     title =
       "Delhi Riots 2020";
@@ -1429,12 +1422,12 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 65
-      ? "More suspects identified through cameras and FRT."
-      : "Lower monitoring but reduced profiling concerns.";
+        ? "More suspects identified through cameras and FRT."
+        : "Lower monitoring but reduced profiling concerns.";
 
   }
 
-  if(event === "cyber"){
+  if (event === "cyber") {
 
     title =
       "National Cyber Attack";
@@ -1452,8 +1445,8 @@ function simulateHistoricalEvent(){
 
     outcome =
       dial > 50
-      ? "Enhanced network monitoring improves threat response."
-      : "Slower detection but stronger privacy guarantees.";
+        ? "Enhanced network monitoring improves threat response."
+        : "Slower detection but stronger privacy guarantees.";
 
   }
 
@@ -1505,209 +1498,209 @@ function simulateHistoricalEvent(){
 }
 
 const eyeCanvas =
-document.getElementById("surveillanceEyeCanvas");
+  document.getElementById("surveillanceEyeCanvas");
 
-if(eyeCanvas){
+if (eyeCanvas) {
 
-const ctx =
-eyeCanvas.getContext("2d");
+  const ctx =
+    eyeCanvas.getContext("2d");
 
-eyeCanvas.width = 700;
-eyeCanvas.height = 350;
+  eyeCanvas.width = 700;
+  eyeCanvas.height = 350;
 
-let rot = 0;
+  let rot = 0;
 
-function drawEye(){
+  function drawEye() {
 
-ctx.clearRect(0,0,700,350);
+    ctx.clearRect(0, 0, 700, 350);
 
-const cx = 350;
-const cy = 175;
+    const cx = 350;
+    const cy = 175;
 
-/* HUD RING 1 */
+    /* HUD RING 1 */
 
-ctx.save();
+    ctx.save();
 
-ctx.translate(cx,cy);
+    ctx.translate(cx, cy);
 
-ctx.rotate(rot);
+    ctx.rotate(rot);
 
-for(let i=0;i<120;i++){
+    for (let i = 0; i < 120; i++) {
 
-ctx.strokeStyle =
-"rgba(24,184,200,.25)";
+      ctx.strokeStyle =
+        "rgba(24,184,200,.25)";
 
-ctx.beginPath();
+      ctx.beginPath();
 
-ctx.arc(
-0,
-0,
-90,
-(i*3)*Math.PI/180,
-(i*3+1)*Math.PI/180
-);
+      ctx.arc(
+        0,
+        0,
+        90,
+        (i * 3) * Math.PI / 180,
+        (i * 3 + 1) * Math.PI / 180
+      );
 
-ctx.stroke();
+      ctx.stroke();
 
-}
+    }
 
-ctx.restore();
+    ctx.restore();
 
-/* HUD RING 2 */
+    /* HUD RING 2 */
 
-ctx.save();
+    ctx.save();
 
-ctx.translate(cx,cy);
+    ctx.translate(cx, cy);
 
-ctx.rotate(-rot*1.4);
+    ctx.rotate(-rot * 1.4);
 
-ctx.strokeStyle =
-"rgba(24,184,200,.5)";
+    ctx.strokeStyle =
+      "rgba(24,184,200,.5)";
 
-ctx.lineWidth = 2;
+    ctx.lineWidth = 2;
 
-ctx.beginPath();
-ctx.arc(0,0,70,0,Math.PI*2);
-ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, 0, 70, 0, Math.PI * 2);
+    ctx.stroke();
 
-ctx.restore();
+    ctx.restore();
 
-/* SCAN BEAM */
+    /* SCAN BEAM */
 
-ctx.save();
+    ctx.save();
 
-ctx.translate(cx,cy);
+    ctx.translate(cx, cy);
 
-ctx.rotate(rot*2);
+    ctx.rotate(rot * 2);
 
-const beam =
-ctx.createLinearGradient(
-0,0,130,0
-);
+    const beam =
+      ctx.createLinearGradient(
+        0, 0, 130, 0
+      );
 
-beam.addColorStop(
-0,
-"rgba(24,184,200,0)"
-);
+    beam.addColorStop(
+      0,
+      "rgba(24,184,200,0)"
+    );
 
-beam.addColorStop(
-.5,
-"rgba(24,184,200,.9)"
-);
+    beam.addColorStop(
+      .5,
+      "rgba(24,184,200,.9)"
+    );
 
-beam.addColorStop(
-1,
-"rgba(24,184,200,0)"
-);
+    beam.addColorStop(
+      1,
+      "rgba(24,184,200,0)"
+    );
 
-ctx.strokeStyle = beam;
-ctx.lineWidth = 5;
+    ctx.strokeStyle = beam;
+    ctx.lineWidth = 5;
 
-ctx.beginPath();
-ctx.moveTo(0,0);
-ctx.lineTo(130,0);
-ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(130, 0);
+    ctx.stroke();
 
-ctx.restore();
+    ctx.restore();
 
-/* IRIS */
+    /* IRIS */
 
-const iris =
-ctx.createRadialGradient(
-cx,cy,10,
-cx,cy,90
-);
+    const iris =
+      ctx.createRadialGradient(
+        cx, cy, 10,
+        cx, cy, 90
+      );
 
-iris.addColorStop(0,"#ffffff");
-iris.addColorStop(.1,"#9fffff");
-iris.addColorStop(.4,"#18b8c8");
-iris.addColorStop(1,"#00181c");
+    iris.addColorStop(0, "#ffffff");
+    iris.addColorStop(.1, "#9fffff");
+    iris.addColorStop(.4, "#18b8c8");
+    iris.addColorStop(1, "#00181c");
 
-ctx.fillStyle = iris;
+    ctx.fillStyle = iris;
 
-ctx.beginPath();
-ctx.arc(cx,cy,85,0,Math.PI*2);
-ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx, cy, 85, 0, Math.PI * 2);
+    ctx.fill();
 
-/* PUPIL */
+    /* PUPIL */
 
-let offset = 0;
+    let offset = 0;
 
-const slider =
-document.getElementById("slider");
+    const slider =
+      document.getElementById("slider");
 
-if(slider){
+    if (slider) {
 
-offset =
-((Number(slider.value)-50)/50)*25;
+      offset =
+        ((Number(slider.value) - 50) / 50) * 25;
 
-}
+    }
 
-ctx.fillStyle="#000";
+    ctx.fillStyle = "#000";
 
-ctx.beginPath();
-ctx.arc(
-cx+offset,
-cy,
-35,
-0,
-Math.PI*2
-);
+    ctx.beginPath();
+    ctx.arc(
+      cx + offset,
+      cy,
+      35,
+      0,
+      Math.PI * 2
+    );
 
-ctx.fill();
+    ctx.fill();
 
-/* TARGETING MARKS */
+    /* TARGETING MARKS */
 
-ctx.strokeStyle =
-"#18b8c8";
+    ctx.strokeStyle =
+      "#18b8c8";
 
-ctx.lineWidth = 2;
+    ctx.lineWidth = 2;
 
-ctx.strokeRect(
-cx-105,
-cy-105,
-210,
-210
-);
+    ctx.strokeRect(
+      cx - 105,
+      cy - 105,
+      210,
+      210
+    );
 
-/* PARTICLES */
+    /* PARTICLES */
 
-for(let i=0;i<40;i++){
+    for (let i = 0; i < 40; i++) {
 
-const a =
-(i*9+rot*150)
-*Math.PI/180;
+      const a =
+        (i * 9 + rot * 150)
+        * Math.PI / 180;
 
-const r =
-110+
-Math.sin(rot+i)*12;
+      const r =
+        110 +
+        Math.sin(rot + i) * 12;
 
-const x =
-cx+
-Math.cos(a)*r;
+      const x =
+        cx +
+        Math.cos(a) * r;
 
-const y =
-cy+
-Math.sin(a)*r;
+      const y =
+        cy +
+        Math.sin(a) * r;
 
-ctx.fillStyle =
-"#18b8c8";
+      ctx.fillStyle =
+        "#18b8c8";
 
-ctx.fillRect(
-x,
-y,
-2,
-2
-);
+      ctx.fillRect(
+        x,
+        y,
+        2,
+        2
+      );
 
-}
+    }
 
-rot += 0.01;
+    rot += 0.01;
 
-requestAnimationFrame(drawEye);
+    requestAnimationFrame(drawEye);
 
-}
+  }
 
-drawEye();
+  drawEye();
 
 }
