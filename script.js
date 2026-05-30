@@ -2193,8 +2193,6 @@ function calculateBudget(){
 
 }
 
-<<<<<<< HEAD
-
 window.isMuted = false;
 window.toggleMute = function() {
   window.isMuted = !window.isMuted;
@@ -2208,7 +2206,6 @@ window.toggleMute = function() {
     window.playClickSound();
   }
 };
-=======
 const CASE_NAMES = [
 
   "Rahul Sharma",
@@ -2358,4 +2355,4 @@ function generateCase(){
     `;
 
 }
->>>>>>> 2670ddc (fixing bugs)
+

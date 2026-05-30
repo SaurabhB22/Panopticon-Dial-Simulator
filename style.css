@@ -1109,7 +1109,7 @@ input[type=range]:hover::-webkit-slider-thumb {
   line-height:1.5;
 }
 
-<<<<<<< HEAD
+
 .cyber-btn {
   background: transparent;
   border: 1px solid var(--border3);
@@ -1136,7 +1136,6 @@ input[type=range]:hover::-webkit-slider-thumb {
   transform: scale(0.96);
 }
 
-=======
 .case-card{
   border:1px solid var(--border);
   background:var(--surface);
@@ -1161,4 +1160,3 @@ input[type=range]:hover::-webkit-slider-thumb {
   border-radius:4px;
   background:#162022;
 }
->>>>>>> 2670ddc (fixing bugs)
