@@ -940,3 +940,128 @@ function renderHeatmap(){
     }).join("");
 
 }
+
+const CITIZEN_NAMES = [
+  "Aditi Sharma",
+  "Rahul Verma",
+  "Priya Singh",
+  "Arjun Patel",
+  "Neha Gupta",
+  "Vikram Kumar",
+  "Pooja Mehta",
+  "Rohan Joshi",
+  "Ananya Rao",
+  "Saurabh Mishra"
+];
+
+const OCCUPATIONS = [
+  "Student",
+  "Teacher",
+  "Journalist",
+  "Software Engineer",
+  "Doctor",
+  "Lawyer",
+  "Farmer",
+  "Business Owner",
+  "Researcher",
+  "Social Worker"
+];
+
+function generateCitizen(){
+
+  const name =
+    CITIZEN_NAMES[
+      Math.floor(
+        Math.random()*CITIZEN_NAMES.length
+      )
+    ];
+
+  const occupation =
+    OCCUPATIONS[
+      Math.floor(
+        Math.random()*OCCUPATIONS.length
+      )
+    ];
+
+  const city =
+    INDIA_DATA.cities[
+      Math.floor(
+        Math.random()*INDIA_DATA.cities.length
+      )
+    ].name;
+
+  const age =
+    Math.floor(
+      Math.random()*45
+    ) + 18;
+
+  const scans =
+    Math.round(
+      dial * 0.2
+    );
+
+  const risk =
+    Math.round(
+      dial * 0.8
+    );
+
+  const liberty =
+    Math.max(
+      5,
+      100 - dial
+    );
+
+  document
+    .getElementById(
+      "citizenCard"
+    )
+    .innerHTML = `
+
+      <div class="citizen-card">
+
+        <div class="citizen-title">
+          Simulated Citizen
+        </div>
+
+        <div class="citizen-row">
+          <span>Name</span>
+          <strong>${name}</strong>
+        </div>
+
+        <div class="citizen-row">
+          <span>Age</span>
+          <strong>${age}</strong>
+        </div>
+
+        <div class="citizen-row">
+          <span>Occupation</span>
+          <strong>${occupation}</strong>
+        </div>
+
+        <div class="citizen-row">
+          <span>City</span>
+          <strong>${city}</strong>
+        </div>
+
+        <hr>
+
+        <div class="citizen-row">
+          <span>FRT Scans</span>
+          <strong>${scans}</strong>
+        </div>
+
+        <div class="citizen-row">
+          <span>Risk Score</span>
+          <strong>${risk}%</strong>
+        </div>
+
+        <div class="citizen-row">
+          <span>Civil Liberty</span>
+          <strong>${liberty}%</strong>
+        </div>
+
+      </div>
+
+    `;
+
+}

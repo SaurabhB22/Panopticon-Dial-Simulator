@@ -214,3 +214,21 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border2
   height:100%;
   transition:width .5s ease;
 }
+
+.citizen-card{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:12px;
+}
+
+.citizen-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.citizen-title{
+  color:var(--cyan);
+  margin-bottom:10px;
+  font-size:11px;
+}
