@@ -1109,3 +1109,30 @@ input[type=range]:hover::-webkit-slider-thumb {
   line-height:1.5;
 }
 
+.cyber-btn {
+  background: transparent;
+  border: 1px solid var(--border3);
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 600;
+  padding: 4px 8px;
+  cursor: pointer;
+  letter-spacing: 0.12em;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.cyber-btn:hover {
+  background: rgba(24, 184, 200, 0.1);
+  border-color: var(--cyan);
+  box-shadow: 0 0 8px rgba(24, 184, 200, 0.3);
+  color: var(--white);
+}
+
+.cyber-btn:active {
+  transform: scale(0.96);
+}
+
+

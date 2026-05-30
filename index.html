@@ -38,6 +38,8 @@
         <div class="hlabel">NATGRID ACTIVE-45,000 QUERIES/MONTH</div>
         <div class="hsep"></div>
         <div class="hclock" id="clock">--</div>
+        <div class="hsep"></div>
+        <button id="muteBtn" class="cyber-btn" onclick="toggleMute()" title="Toggle Sound">🔊 AUDIO: ON</button>
       </div>
     </header>
     <div class="pleft">
@@ -54,6 +56,12 @@
       <div class="sec">
         <div class="lbl">System Metrics</div>
         <div id="metricsLeft"></div>
+      </div>
+      <div class="sec" style="padding-bottom:8px">
+        <div class="lbl">Historical Trend</div>
+        <div id="trendWrap" style="height: 100px; position: relative;">
+          <canvas id="trendCanvas"></canvas>
+        </div>
       </div>
       <div class="sec" style="flex:1;overflow-y:auto;border-bottom:none">
         <div class="lbl">India Ground Truth (NCRB 2023)</div>

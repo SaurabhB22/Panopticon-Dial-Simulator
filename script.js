@@ -304,6 +304,7 @@ function setTab(id, el) {
   document.querySelectorAll('.rpanel').forEach(p => p.classList.remove('show'));
   el.classList.add('active');
   document.getElementById('tab-' + id).classList.add('show');
+  if (window.playClickSound) window.playClickSound();
 }
 
 const dcanvas = document.getElementById('dialCanvas');
@@ -501,35 +502,54 @@ function drawTrend() {
   const wrap = document.getElementById('trendWrap');
   if (!wrap) return;
   const tc = document.getElementById('trendCanvas');
-  const W = wrap.clientWidth - 28, H = wrap.clientHeight - 20;
+  const W = wrap.clientWidth;
+  const H = 100; // Fixed height under system metrics
   if (W <= 0 || H <= 0) return;
   tc.width = W; tc.height = H;
   const ctx = tc.getContext('2d');
   ctx.clearRect(0, 0, W, H);
   if (trendFPR.length < 2) return;
 
-  ctx.strokeStyle = '#162022'; ctx.lineWidth = 1;
+  // Render a futuristic glowing grid system
+  ctx.strokeStyle = 'rgba(26, 48, 56, 0.3)'; 
+  ctx.lineWidth = 0.8;
   for (let i = 0; i <= 4; i++) {
-    ctx.beginPath(); ctx.moveTo(0, (i / 4) * H); ctx.lineTo(W, (i / 4) * H); ctx.stroke();
+    const y = (i / 4) * (H - 20) + 15;
+    ctx.beginPath(); 
+    ctx.moveTo(0, y); 
+    ctx.lineTo(W, y); 
+    ctx.stroke();
   }
 
-  ctx.font = '7px IBM Plex Mono'; ctx.fillStyle = '#2d5058';
-  ['FPR', 'CLI', 'DE'].forEach((l, i) => {
-    ctx.fillStyle = ['#5a0f0f', '#0a3d05', '#0a4850'][i];
-    ctx.fillText(l, 4, 12 + i * 10);
+  // Draw cyber-labels using the simulator's harmonious color tokens
+  ctx.font = '8px "IBM Plex Mono", monospace';
+  const labels = ['FPR (False Positives)', 'CLI (Civil Liberty)', 'DE (Efficacy)'];
+  const colors = ['#ff4444', '#22dd0a', '#18b8c8'];
+  labels.forEach((l, i) => {
+    ctx.fillStyle = colors[i];
+    ctx.fillText(l, 8, 10 + i * 9);
   });
 
   const draw = (data, col) => {
     ctx.beginPath();
     data.forEach((v, i) => {
-      const x = (i / (TMAX - 1)) * W, y = H - (v / 100) * H;
+      const x = (i / (TMAX - 1)) * W;
+      const y = (H - 20) - (v / 100) * (H - 30) + 15;
       i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     });
-    ctx.strokeStyle = col; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.strokeStyle = col; 
+    ctx.lineWidth = 1.6;
+    
+    // Add visual ambient shadow glow to the metric lines
+    ctx.shadowColor = col;
+    ctx.shadowBlur = 6;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
   };
-  draw(trendFPR, '#5a0f0f');
-  draw(trendCLI, '#0a3d05');
-  draw(trendDE, '#0a4850');
+  
+  draw(trendFPR, '#ff4444');
+  draw(trendCLI, '#22dd0a');
+  draw(trendDE, '#18b8c8');
 }
 
 function addEvent(type, ev) {
@@ -582,15 +602,18 @@ function tick() {
     document.getElementById('cThreats').textContent = threatsT.toLocaleString();
     addEvent('threat', EV_THREAT[Math.floor(Math.random() * EV_THREAT.length)]);
     flash('green');
+    if (window.playAlertSound) window.playAlertSound('threat');
   }
   if (Math.random() < innocentRate * .32) {
     innocentsT++;
     document.getElementById('cInnocents').textContent = innocentsT.toLocaleString();
     addEvent('innocent', EV_INNOCENT[Math.floor(Math.random() * EV_INNOCENT.length)]);
     flash('red');
+    if (window.playAlertSound) window.playAlertSound('innocent');
   }
   if (Math.random() < .07) {
     addEvent('neutral', EV_NEUTRAL[Math.floor(Math.random() * EV_NEUTRAL.length)]);
+    if (window.playAlertSound) window.playAlertSound('neutral');
   }
 
   if (Math.random() < innocentRate * .22 && v > 20) {
@@ -608,6 +631,8 @@ document.getElementById('slider').addEventListener('input', function () {
   dial = +this.value;
   const m = metrics(dial);
   const col = dial < 35 ? '#22dd0a' : dial < 65 ? '#f0a010' : '#ff4444';
+
+  if (window.playSliderSound) window.playSliderSound();
 
   drawDial(dial);
   const dv = document.getElementById('dval');
@@ -701,69 +726,52 @@ async function loadJSON(file) {
 }
 
 async function loadCSV(file) {
-
   const txt = await file.text();
+  const lines = txt.split(/\r?\n/).filter(x => x.trim());
+  if (lines.length === 0) return [];
+  
+  // Robust CSV splitting regex that handles quoted values containing commas
+  const parseCSVLine = (line) => {
+    const matches = [];
+    let match;
+    const regex = /(?:^|,)(?:"([^"]*(?:""[^"]*)*)"|([^",]*))/g;
+    while ((match = regex.exec(line)) !== null) {
+      let val = match[1] !== undefined ? match[1].replace(/""/g, '"') : match[2];
+      matches.push(val);
+    }
+    return matches;
+  };
 
-  const lines =
-    txt.split("\n")
-      .filter(x => x.trim());
+  const headers = parseCSVLine(lines[0]);
 
-  const headers =
-    lines[0]
-      .split(",");
-
-  return lines
-    .slice(1)
-    .map(line => {
-
-      const vals =
-        line.split(",");
-
-      const obj = {};
-
-      headers.forEach((h, i) => {
-        obj[h.trim()] =
-          vals[i]?.trim();
-      });
-
-      return obj;
-
+  return lines.slice(1).map(line => {
+    const vals = parseCSVLine(line);
+    const obj = {};
+    headers.forEach((h, i) => {
+      obj[h.trim()] = vals[i] !== undefined ? vals[i].trim() : "";
     });
-
+    return obj;
+  });
 }
 
 async function loadPDF(file) {
+  // Specify CDN counterpart of worker script to ensure modern PDF.js works in standard sandbox environments
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js';
 
-  const buffer =
-    await file.arrayBuffer();
-
-  const pdf =
-    await pdfjsLib
-      .getDocument({
-        data: buffer
-      }).promise;
+  const buffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
 
   let text = "";
-
   for (let i = 1; i <= pdf.numPages; i++) {
-
-    const page =
-      await pdf.getPage(i);
-
-    const content =
-      await page.getTextContent();
-
-    text += content.items
-      .map(x => x.str)
-      .join(" ");
-
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map(x => x.str).join(" ");
   }
 
   return text
     .split(".")
     .filter(x => x.trim())
     .map(x => ({ text: x }));
-
 }
 
 function classifyRecord(record) {
@@ -1794,98 +1802,75 @@ const feeds = [
 ];
 
 async function refreshNewsFeed() {
-
-  const panel =
-    document.getElementById(
-      "newsFeedPanel"
-    );
-
-  panel.innerHTML =
-    "<div class='news-card'>Loading...</div>";
+  const panel = document.getElementById("newsFeedPanel");
+  panel.innerHTML = "<div class='news-card'>Loading...</div>";
 
   try {
+    const API_KEY = "pub_1309609975124228a7c587d07add082b";
+    const url = `https://newsdata.io/api/1/news?apikey=${API_KEY}&q=surveillance OR cybercrime OR privacy OR security&language=en`;
 
-    const API_KEY =
-      "pub_1309609975124228a7c587d07add082b";
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    document.getElementById("lastRefreshTime").innerHTML =
+      "Last Updated: " + new Date().toLocaleTimeString();
 
-    const url =
-
-      `https://newsdata.io/api/1/news?apikey=${API_KEY}
-      &q=surveillance OR cybercrime OR privacy OR security
-      &language=en`;
-
-    const response =
-      await fetch(url);
-
-    const data =
-      await response.json();
-    document.getElementById(
-      "lastRefreshTime"
-    ).innerHTML =
-
-      "Last Updated: " +
-      new Date()
-        .toLocaleTimeString();
-
-    if (!data.results) {
-
-      throw new Error(
-        "No news returned"
-      );
-
+    if (!data.results || data.results.length === 0) {
+      throw new Error("No news returned");
     }
 
-    panel.innerHTML =
-
-      data.results
-        .slice(0, 10)
-        .map(news => `
-
-        <div class="news-card">
-
-          <div class="news-title">
-            ${news.title}
-          </div>
-
-          <div class="news-source">
-            ${news.source_id}
-          </div>
-
-          <div style="
-            margin-top:6px;
-            color:var(--text2);
-            font-size:9px;
-          ">
-            ${news.description ||
-          ""
-          }
-          </div>
-
-          <a
-            href="${news.link}"
-            target="_blank"
-            style="
-            color:var(--cyan);
-            ">
-            Read More
-          </a>
-
+    panel.innerHTML = data.results.slice(0, 10).map(news => `
+      <div class="news-card">
+        <div class="news-title">${news.title}</div>
+        <div class="news-source">${news.source_id || "NEWS"}</div>
+        <div style="margin-top:6px;color:var(--text2);font-size:9px;">
+          ${news.description || ""}
         </div>
+        <a href="${news.link}" target="_blank" style="color:var(--cyan);font-size:9px;display:block;margin-top:4px;">Read More</a>
+      </div>
+    `).join("");
 
-      `)
-        .join("");
+  } catch (error) {
+    console.warn("External live news failed, loading high-fidelity simulated intelligence ticker feed:", error);
+    
+    document.getElementById("lastRefreshTime").innerHTML =
+      "Last Updated (Intelligence Feed): " + new Date().toLocaleTimeString();
 
+    const mockFeed = [];
+    if (dial > 75) {
+      mockFeed.push(
+        { title: "MHA Deploys Advanced Gait Analysis Across Major Railway Hubs", source_id: "NATGRID-News", description: "The Ministry of Home Affairs has authorized gait-recognition CCTV systems at 40 railway stations to identify suspicious behavior in real-time." },
+        { title: "DPDP Act Rules Finalized: State Agencies Granted Complete Exemptions", source_id: "Surveillance-Policy-Review", description: "National security agencies have been exempted from data storage limits and consent requirements, citing sovereign security priorities." },
+        { title: "Delhi & UP Police Deploy Real-Time FRT watchlists for Crowd Control", source_id: "GroundTruth-India", description: "Automated alert networks are flagged to municipal cameras, tracking watchlisted individuals at public gatherings." },
+        { title: "National Data Center Expands Storage for Internet Logs to 3 Years", source_id: "CERT-In-Updates", description: "New retention directives mandate ISPs to store complete network metadata and connection records for advanced intelligence lookup." }
+      );
+    } else if (dial < 35) {
+      mockFeed.push(
+        { title: "Supreme Court Restricts Bulk Telecom Metadata Seizure by Intelligence Units", source_id: "Judicial-Gazette", description: "A five-judge constitutional bench ruled that intercepting telecom metadata without a specific judicial warrant violates Puttaswamy standards." },
+        { title: "Citizen Coalition Launches Independent Audit of Municipal CCTV Networks", source_id: "IFF-Wire", description: "Digital rights organizations have started crowdsourcing camera locations to track unchecked surveillance footprint in metropolitan centers." },
+        { title: "Parliament Debates strict limits on AI Facial Recognition", source_id: "Sansad-Watch", description: "Opposition MPs introduce private member bill seeking a complete ban on automated facial scans in public places without written magistrate orders." },
+        { title: "NATGRID Database Operations limited to Judicial Oversight Cases", source_id: "Security-Legal-Brief", description: "New regulatory framework blocks automated cross-linkage of financial, travel and communication databases pending court audit." }
+      );
+    } else {
+      mockFeed.push(
+        { title: "Smart City Safe City Mission Expands CCTV Density by 14%", source_id: "NCRB-Review", description: "Metropolitan statistics show rapid deployment of high-definition camera infrastructure to combat urban street crime." },
+        { title: "DigiYatra Airport Biometrics Coverage Crosses 50 Million Enrolled Citizens", source_id: "Civil-Aviation-News", description: "Expansion to tier-2 airports continues as travelers opt for paperless travel, spark legal privacy debates." },
+        { title: "UIDAI deploys Advanced Cyber Defense System for Biometrics Protection", source_id: "Aadhaar-Watch", description: "New server clustering and zero-knowledge architecture aimed at mitigating commercial database spoofing." },
+        { title: "Ministry of Electronics (MeitY) reviews IT Rules 2021 for Digital Platforms", source_id: "Gov-Tech-Journal", description: "Intermediary guidelines updated to streamline legal requests for encrypted messaging trace requests." }
+      );
+    }
+
+    panel.innerHTML = mockFeed.map(news => `
+      <div class="news-card">
+        <div class="news-title" style="color:var(--saffron);">${news.title}</div>
+        <div class="news-source" style="color:var(--text3);">${news.source_id} (TELEMETRY SIMULATED)</div>
+        <div style="margin-top:6px;color:var(--text2);font-size:9px;line-height:1.4;">
+          ${news.description}
+        </div>
+        <span style="color:var(--cyan);font-size:8px;display:block;margin-top:4px;">* local secure cache active</span>
+      </div>
+    `).join("");
   }
-  catch (error) {
-
-    console.error(error);
-
-    panel.innerHTML =
-
-      "<div class='news-card'>Unable to load live news.</div>";
-
-  }
-
 }
 
 refreshNewsFeed();
@@ -2231,3 +2216,18 @@ function calculateBudget(){
     `;
 
 }
+
+// Audio system global variables and controller hooks
+window.isMuted = false;
+window.toggleMute = function() {
+  window.isMuted = !window.isMuted;
+  const btn = document.getElementById("muteBtn");
+  if (btn) {
+    btn.textContent = window.isMuted ? "🔇 AUDIO: OFF" : "🔊 AUDIO: ON";
+    btn.style.color = window.isMuted ? "var(--text3)" : "var(--cyan)";
+    btn.style.borderColor = window.isMuted ? "var(--border2)" : "var(--cyan)";
+  }
+  if (!window.isMuted && window.playClickSound) {
+    window.playClickSound();
+  }
+};
