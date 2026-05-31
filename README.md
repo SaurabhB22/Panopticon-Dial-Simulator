@@ -1,84 +1,254 @@
-# The Panopticon Dial: India Surveillance Policy Simulator
+# Panopticon Dial Simulator
 
-An interactive, high-fidelity web-based simulator designed to explore the friction between national state surveillance (Nazar) and constitutional civil liberty (Aazadi) in India. The simulation models and figures are sourced from national reports and ground truth frameworks, including NCRB 2023, the Internet Freedom Foundation (IFF), NATGRID, SFLC.in, and the International Association of Privacy Professionals (IAPP).
+### Exploring the Balance Between Mass Surveillance and Public Safety
 
-## Overview
+Panopticon Dial Simulator is an interactive web-based policy simulation platform that enables users to explore the relationship between surveillance intensity, public safety, privacy, governance, and societal impact.
 
-The simulator places you in control of India's national surveillance policy. By adjusting a central Surveillance Index Dial from 0 to 100, you scale active state policies—ranging from localized, warrant-based oversight to total algorithmic control—and witness their direct mathematical impact on state security, minority profiling, public trust, and individual liberties.
+The platform simulates how different levels of surveillance influence crime prevention, threat detection, civil liberties, public sentiment, operational costs, and policy outcomes. Through real-time analytics, data visualization, intelligence monitoring, and dataset analysis, the simulator provides a practical environment for understanding the trade-offs between mass surveillance and public safety.
 
-## Core Features
+## Live Demo
 
-### 1. Interactive Policy Levers
+GitHub Pages: https://saurabhb22.github.io/Panopticon-Dial-Simulator/
 
-- Granular Control: Shift from Minimal Oversight to Targeted Warrants, Balanced Watch, Mass Collection, and the Total Panopticon.
+Source Code: https://github.com/SaurabhB22/Panopticon-Dial-Simulator
 
-- Dynamic Policy Levers: Actively toggles real-world instruments like Smart City ANPR networks, DigiYatra biometrics, Pegasus precedents, CERT-In retention rules, IT Act Section 69 intercepts, and NATGRID integration.
+## Theme
 
-### 2. Synthesised Retro-Cyber SFX Engine
+Mass Surveillance vs Public Safety
 
-- Procedural Mainframe Hum: Generates an ambient 55Hz mainframe hum pulsing with a low-frequency oscillator mod.
+## Features
 
-- Low-Latency Tactile Audio: Synthesizes custom square and triangle wave clicks on tab toggles and slider shifts to simulate hardware buttons.
+### Interactive Panopticon Dial
 
-- Alert Alarms: Plays clean frequency success chords for neutralized threats vs distorted sawtooth warning sweeps on civil liberties violations.
+The core component of the simulator.
 
-- Header Audio Controller: Includes a dedicated audio mute switch to toggle synthesised oscillators instantly.
+Users can dynamically adjust surveillance intensity and instantly observe changes across multiple governance, security, and privacy indicators.
 
-### 3. Real-Time Graphical HUD
+### Crime Analytics Dashboard
 
-- Dynamic Metric Graphing: Draws a high-tech glowing canvas chart inside the Left Pane plotting False Positive Rates, Civil Liberty Indices, and Detection Efficacy over a running timeline.
+Displays real-time metrics including:
 
-- Visual Glitch Scanlines: Implements subtle analog overlay scanlines and flashes a heavy full-screen color rotation filter when critical rights violations trigger.
+* Threat Neutralization Score
+* Public Safety Index
+* Civil Liberty Index
+* False Positive Risk
+* Innocents Profiled
+* Security Effectiveness
 
-### 4. Interactive Diagnostics Panel
+### Dataset Intelligence Analyzer
 
-- Real-Time Feed: Tracks crime preventions and false profiling occurrences under active threat indices.
+Supports:
 
-- City Camera Densities: Details CCTV counts and crime rates across major metros (Delhi, Mumbai, Bengaluru, Hyderabad, and more).
+* CSV Uploads
+* JSON Uploads
+* PDF Uploads
 
-- Legal Framework: Explains legal statutes like Puttaswamy v. UoI (2017), the DPDP Act 2023, CERT-In directions, and legacy laws like the Telegraph Act 1885.
+Analyze criminal-record datasets and intelligence files to determine:
 
-- Budget Assessments: Evaluates fiscal spending in INR Crore for CCTV, FRT, and AI networks based on index requirements.
+* Threat Patterns
+* Innocent Profiling Risks
+* False Positive Probability
+* Surveillance Effectiveness
+* Dataset Verdict
 
-- Historical Event Simulator: Replays situations like the 2008 Mumbai Attacks, Covid Lockdown, and Farmers Protests under current index parameters.
+### Smart Surveillance Heatmap
 
-- National Security Feed: Fetches live regional headlines, falling back automatically to a localized secure news telemetry feed in offline environments.
+Visualizes surveillance coverage and monitoring intensity across cities.
 
-### 5. Datasets Analyzer
+Features:
 
-- Upload `.json`, `.csv`, or `.pdf` criminal datasets.
+* Risk-Based City Classification
+* Dynamic Heatmap Rendering
+* Surveillance Activity Monitoring
+* Regional Comparison
 
-- Parses records dynamically (using robust regex for quote-protected commas and configured PDF.js worker instances) to assess threat neutralizations versus profiling risks.
+### Real-Time Intelligence Feed
 
-## Technical Stack
+Provides continuously updated intelligence information related to:
 
-- Core: HTML5, Canvas API
-- Styling: HSL Vanilla CSS
-- Logic: Client-Side Vanilla JavaScript
-- Audio: Web Audio API
-- Parsing: PDF.js (v4.4.168)
+* Public Safety
+* Surveillance Policies
+* Cybersecurity
+* Crime Trends
+* National Security
 
-## Local Development and Hosting
+Features:
 
-Since the simulator is entirely client-side, it operates directly as a local file or under standard web hosts.
+* Auto Refresh
+* Live Updates
+* Source Tracking
+* Clickable News Sources
 
-### Option A: Local Browser File (Direct Run)
-Double-click `index.html` to open the simulator directly in your browser. All audio synthesizers and news fallback caches function natively.
+### Public Sentiment Simulator
 
-### Option B: Local Web Server
-To resolve any localized browser origin restrictions (such as PDF uploading CORS safety rules), launch a simple server in your directory:
+Models public response to surveillance policies.
 
-Using Python 3:
-```bash
-python -m http.server 8000
-```
-Using Node.js:
-```bash
-npx http-server -p 8000
-```
+Sentiment Levels:
 
-Once running, navigate to `http://localhost:8000` in your web browser.
+* Highly Supportive
+* Supportive
+* Neutral
+* Concerned
+* Opposed
+* Strongly Opposed
 
-## Data and Reference Disclaimers
+### Policy Advisor
 
-This simulation models political compromises using NCRB Conviction statistics, commercial CCTV projection CAGR rates, and reports published by digital liberties advocates. All calculations represent hypothetical scenarios designed for academic demonstration and system design studies.
+Generates policy recommendations based on current surveillance settings.
+
+Provides:
+
+* Security Assessment
+* Privacy Impact Analysis
+* Governance Recommendations
+* Risk Evaluation
+
+### Historical Event Simulator
+
+Simulates how different surveillance levels may have affected major historical incidents.
+
+Outputs:
+
+* Detection Probability
+* Intervention Success
+* Privacy Cost
+* Operational Impact
+
+### False Positive Case Generator
+
+Demonstrates the human impact of surveillance errors.
+
+Generates realistic citizen scenarios showing:
+
+* Misidentification
+* Wrongful Profiling
+* Administrative Consequences
+* Public Reaction
+
+### Surveillance Budget Calculator
+
+Calculates estimated costs associated with surveillance infrastructure.
+
+Includes:
+
+* Infrastructure Costs
+* Operational Expenditure
+* Resource Allocation
+* Cost Per Citizen
+
+### Global Surveillance Comparison
+
+Compares surveillance strategies across multiple countries.
+
+Displays:
+
+* Surveillance Scores
+* Global Rankings
+* Comparative Analytics
+* Monitoring Intensity
+
+### Citizen Impact Simulation
+
+Evaluates how surveillance policies affect individual citizens and communities.
+
+Measures:
+
+* Privacy Exposure
+* Monitoring Risk
+* Societal Impact
+
+### Live Dashboard Animations
+
+Advanced visual effects including:
+
+* Live Status Indicators
+* Threat Pulse Animations
+* Dynamic Counters
+* Activity Signals
+* Real-Time Dashboard Updates
+
+## Tech Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript (ES6)
+
+### Data Processing
+
+* JSON Analysis
+* CSV Parsing
+* PDF Dataset Processing
+
+### Visualization
+
+* Interactive Dashboards
+* Dynamic Heatmaps
+* Statistical Panels
+* Intelligence Monitoring Interfaces
+
+### Deployment
+
+* GitHub Pages
+
+## How to Use
+
+### Adjust Surveillance Level
+
+Move the Panopticon Dial to simulate different surveillance intensities.
+
+### Analyze Datasets
+
+Upload CSV, JSON, or PDF files through the Dataset Intelligence Analyzer.
+
+### Monitor Intelligence Feed
+
+Observe real-time intelligence updates and policy developments.
+
+### Explore Policy Trade-Offs
+
+Compare the impact of surveillance decisions on:
+
+* Security
+* Privacy
+* Public Sentiment
+* Budget
+* Governance
+
+## Educational Value
+
+This project helps users understand:
+
+* Surveillance Governance
+* Privacy vs Security Trade-offs
+* Public Policy Decision Making
+* Civil Liberties
+* Ethical Technology Deployment
+* Data-Driven Governance
+
+## Future Scope
+
+* GIS-Based Geographic Mapping
+* Predictive Crime Forecasting
+* IoT Sensor Integration
+* Smart-City Command Center Integration
+* Multi-Country Policy Simulation
+* Advanced Risk Modeling
+* AI-Assisted Scenario Forecasting
+
+## Contributing
+
+Contributions, feature suggestions, and improvements are welcome.
+
+Fork the repository, create a feature branch, and submit a pull request.
+
+## License
+
+This project is intended for educational, research, and policy-analysis purposes.
+
+## Author
+
+**Saurabh Bajpai**
+
+Panopticon Dial Simulator — Exploring the Balance Between Mass Surveillance and Public Safety.
